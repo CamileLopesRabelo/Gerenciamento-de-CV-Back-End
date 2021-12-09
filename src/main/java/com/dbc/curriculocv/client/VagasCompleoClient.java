@@ -1,20 +1,21 @@
 package com.dbc.curriculocv.client;
 
-import com.dbc.curriculocv.dto.VagasCompleoDTO;
 import feign.Headers;
-import feign.Param;
 import feign.RequestLine;
+import org.bson.Document;
 import org.springframework.cloud.openfeign.FeignClient;
 
 import java.util.List;
 
-@FeignClient(value="dados-pessoais", url=" https://api.compleo.com.br/api/relatorios/listarRelatorioVagasGeral")
+@FeignClient(value="vagas-compleo", url="https://api.compleo.com.br")
 @Headers("Content-Type: application/json")
+
 
 public interface VagasCompleoClient {
 
-    @RequestLine("GET /dados-pessoais")
-    List<VagasCompleoDTO> listar();
+    @RequestLine("GET /api/relatorios/listarRelatorioCandidatosVaga")
+    @Headers("auth-token: {hzL2rHXeERNR}")
+    List<Document> listar();
 
 
 

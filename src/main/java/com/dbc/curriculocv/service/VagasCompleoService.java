@@ -4,6 +4,7 @@ import com.dbc.curriculocv.client.VagasCompleoClient;
 import com.dbc.curriculocv.dto.VagasCompleoDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.bson.Document;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,10 +13,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VagasCompleoService {
 
-    private final ObjectMapper objectMapper;
     private final VagasCompleoClient vagasCompleoClient;
 
-    public List<VagasCompleoDTO> list() {
+    public List<Document> list() {
         return vagasCompleoClient.listar();
     }
 
