@@ -1,6 +1,7 @@
 package com.dbc.curriculocv.controller;
 
 import com.dbc.curriculocv.client.VagasCompleoClient;
+import com.dbc.curriculocv.dto.VagasDto;
 import com.dbc.curriculocv.service.VagasCompleoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,11 +18,11 @@ import org.springframework.web.bind.annotation.*;
 public class VagasCompleoController {
 
     private final VagasCompleoService vagasCompleoService;
-    private final VagasCompleoClient vagasCompleoClient;
 
 
     @GetMapping
-    public Document list(@RequestParam("Pagina") Integer pagina, @RequestParam("Quantidade") Integer quantidade ) {
+    public VagasDto list(@RequestParam("Pagina") Integer pagina,
+                         @RequestParam("Quantidade") Integer quantidade ) {
         return vagasCompleoService.list(pagina,quantidade);
     }
 

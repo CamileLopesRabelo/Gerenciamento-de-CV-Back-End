@@ -13,6 +13,7 @@ import java.util.List;
 @Setter
 @Entity(name = "REGRA")
 public class Regra implements Serializable, GrantedAuthority {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_regra")
     @SequenceGenerator(name = "seq_regra", sequenceName = "seq_regra", allocationSize = 1)
