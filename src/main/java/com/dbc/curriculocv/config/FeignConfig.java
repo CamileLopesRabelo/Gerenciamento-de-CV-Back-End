@@ -31,8 +31,6 @@ public class FeignConfig {
                 .logger(new Slf4jLogger())
                 .logLevel(Logger.Level.FULL)
                 .errorDecoder(new SimpleErrorDecode())
-                .decoder(new JacksonDecoder())
-                ;
+                .decoder(new JacksonDecoder());
     }
-
 }
