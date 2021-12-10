@@ -4,6 +4,7 @@ import com.dbc.curriculocv.dto.UsuarioCreateDTO;
 import com.dbc.curriculocv.dto.UsuarioDTO;
 import com.dbc.curriculocv.entity.Regra;
 import com.dbc.curriculocv.entity.Usuario;
+import com.dbc.curriculocv.exceptions.RegraDeNegocioException;
 import com.dbc.curriculocv.repository.RegraRepository;
 import com.dbc.curriculocv.repository.UsuarioRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,13 +27,13 @@ public class UsuarioService {
         return usuarioRepository.findByEmail(email);
     }
 
-    public UsuarioDTO create(UsuarioCreateDTO usuarioCreateDTO) {
+    public UsuarioDTO create(UsuarioCreateDTO usuarioCreateDTO) throws RegraDeNegocioException {
         Usuario entity = objectMapper.convertValue(usuarioCreateDTO, Usuario.class);
         entity.setNome(usuarioCreateDTO.getNome());
         entity.setEmail(usuarioCreateDTO.getEmail());
         entity.setSenha(new BCryptPasswordEncoder().encode(usuarioCreateDTO.getSenha()));
         List<Regra> regras = new ArrayList<>();
-        Regra regra = regraRepository.findById(1).orElseThrow();
+        Regra regra = regraRepository.findById(1).orElseThrow(() -> new RegraDeNegocioException("Regra não encontrada"));
         regras.add(regra);
         entity.setRegras(regras);
         Usuario save = usuarioRepository.save(entity);
