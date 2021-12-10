@@ -3,6 +3,7 @@ package com.dbc.curriculocv.controller;
 import com.dbc.curriculocv.payload.UploadFileResponse;
 import com.dbc.curriculocv.service.FileStorageService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class FileController {
     private final FileStorageService fileStorageService;
 
@@ -30,12 +32,12 @@ public class FileController {
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestPart("file") MultipartFile file) {
         String fileName = fileStorageService.storeFile(file);
-
+        log.info("enviando documento");
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
                 .path(fileName)
                 .toUriString();
-
+        log.info("documento enviado com sucesso!");
         return new UploadFileResponse(fileName, fileDownloadUri,
                 file.getContentType(), file.getSize());
     }
