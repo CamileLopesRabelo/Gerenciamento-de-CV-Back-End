@@ -37,6 +37,6 @@ public class UsuarioService {
         regras.add(regra);
         entity.setRegras(regras);
         Usuario save = usuarioRepository.save(entity);
-        return new UsuarioDTO(save.getIdUsuario(), save.getUsername(), save.getEmail());
+        return new UsuarioDTO(save.getIdUsuario(), save.getNome(), save.getEmail());
     }
 }
