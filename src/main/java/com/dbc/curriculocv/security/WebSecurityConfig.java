@@ -3,7 +3,6 @@ package com.dbc.curriculocv.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,11 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/auth").permitAll()
-                .antMatchers(HttpMethod.GET, "/pokemon/**", "/habilidade/**", "/tipo/**", "/evolucao/**", "/pokemon/dados/**").hasRole("AUXILIAR")
-                .antMatchers(HttpMethod.PUT, "/pokemon/**", "/habilidade/**", "/tipo/**", "/evolucao/**").hasRole("AUXILIAR")
-                .antMatchers(HttpMethod.PUT, "/usuario/update-password/**").hasRole("TREINADOR")
-                .antMatchers(HttpMethod.GET, "/pokemon/**", "/habilidade/**", "/tipo/**", "/evolucao/**", "/pokemon/dados/**").hasRole("TREINADOR")
-                .antMatchers("/**").hasRole("PROFESSOR_CARVALHO")
+                .antMatchers("/**").hasRole("CADASTRADOR")
                 .anyRequest().authenticated()
                 .and().addFilterBefore(new TokenAuthenticationFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
     }
