@@ -1,26 +1,34 @@
 package com.dbc.curriculocv.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
+import java.util.Date;
 
-import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class VagasCompleoDTO {
     private Integer id;
-    private LocalDate DataAbertura;
+    @JsonProperty("DataAbertura")
+    private Date DataAbertura;
+    @JsonProperty("Titulo")
     private String Titulo;
+    @JsonProperty("Status")
     private String Status;
+    @JsonProperty("Cliente")
     private String Cliente;
-    private String Responsável;
+    @JsonProperty("Responsavel")
+    private String Responsavel;
+    @JsonProperty("Analista")
     private String Analista;
+    @JsonProperty("PCD")
     private Boolean PCD;
+    @JsonProperty("Cidade")
     private String Cidade;
+    @JsonProperty("Estado")
     private String Estado;
-    private List<String> candidatos;
+//    private List<String> candidatos;
+
 
 }
