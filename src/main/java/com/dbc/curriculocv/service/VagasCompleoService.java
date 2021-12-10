@@ -15,7 +15,7 @@ public class VagasCompleoService {
     private final VagasCompleoClient vagasCompleoClient;
 
     public Document list(Integer pagina, Integer quantidade) {
-        Document ret = vagasCompleoClient.listar("hzL2rHXeERNR",pagina,quantidade);
+        Document ret = vagasCompleoClient.listar("hzL2rHXeERNR", pagina, quantidade);
         return ret;
     }
 

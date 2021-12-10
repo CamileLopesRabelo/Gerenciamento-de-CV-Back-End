@@ -16,7 +16,6 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 @RequiredArgsConstructor
 public class FeignConfig {
-
     @Bean
     public Contract feignContract() {
         return new Contract.Default();

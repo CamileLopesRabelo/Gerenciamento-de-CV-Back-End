@@ -8,10 +8,11 @@ import org.springframework.cloud.openfeign.FeignClient;
 
 
 @FeignClient(value="vagas-compleo", url="https://api.compleo.com.br")
-@Headers({ "Content-Type: application/json", "auth-token: {token}" })
+@Headers({ "Content-Type: application/json"})
 public interface VagasCompleoClient {
 
     @RequestLine("GET /api/relatorios/listarRelatorioCandidatosVaga?Pagina={Pagina}&Quantidade={Quantidade}")
-    Document listar(@Param("token") String token,@Param("Pagina") Integer pagina,
+    @Headers({"auth-token: {token}"})
+    Document listar(@Param("token") String token, @Param("Pagina") Integer pagina,
                     @Param("Quantidade") Integer quantidade);
     }

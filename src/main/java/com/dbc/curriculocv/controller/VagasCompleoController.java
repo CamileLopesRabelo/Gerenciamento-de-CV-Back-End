@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 public class VagasCompleoController {
 
     private final VagasCompleoService vagasCompleoService;
-    private final VagasCompleoClient vagasCompleoClient;
 
 
     @GetMapping
