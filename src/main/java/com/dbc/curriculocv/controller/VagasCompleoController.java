@@ -2,6 +2,7 @@ package com.dbc.curriculocv.controller;
 
 import com.dbc.curriculocv.client.VagasCompleoClient;
 import com.dbc.curriculocv.dto.VagasDto;
+import com.dbc.curriculocv.dto.VagasFiltradasDto;
 import com.dbc.curriculocv.service.VagasCompleoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,9 +22,8 @@ public class VagasCompleoController {
 
 
     @GetMapping
-    public VagasDto list(@RequestParam("Pagina") Integer pagina,
-                         @RequestParam("Quantidade") Integer quantidade ) {
-        return vagasCompleoService.list(pagina,quantidade);
+    public VagasFiltradasDto list() {
+        return vagasCompleoService.list();
     }
 
 }
