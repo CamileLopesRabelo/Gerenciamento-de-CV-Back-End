@@ -61,5 +61,5 @@ public class Vaga {
             joinColumns = @JoinColumn(name = "fk_vaga"),
             inverseJoinColumns = @JoinColumn(name = "fk_candidato")
     )
-    private List<Candidato> candidatos;
+    private Set<Candidato> candidatos;
 }

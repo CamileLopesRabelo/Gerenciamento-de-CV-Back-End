@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -42,13 +41,13 @@ public class Candidato {
 
     @JsonIgnore
     @OneToMany(mappedBy = "candidato")
-    private List<DadosEscolares> dadosEscolares;
+    private Set<DadosEscolares> dadosEscolares;
 
     @JsonIgnore
     @OneToMany(mappedBy = "candidato")
-    private List<Experiencias> experiencias;
+    private Set<Experiencias> experiencias;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "candidatos")
-    private List<Vaga> vagas;
+    private Set<Vaga> vagas;
 }
