@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class VagasDto {
+public class VagasDTO {
     private List<VagasCompleoDTO> vagaGeralList;
     private Integer total;
     private Integer paginas;
