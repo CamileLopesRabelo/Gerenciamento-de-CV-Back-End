@@ -9,8 +9,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExperienciasDTO {
-    private Integer idExperiencia;
+public class ExperienciasCreateDTO {
     private String nomeEmpresa;
     private Date dataInicio;
     private Date dataFim;
