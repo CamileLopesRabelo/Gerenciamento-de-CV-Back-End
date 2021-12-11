@@ -19,8 +19,8 @@ public class CandidatoController {
     private final CandidatoService candidatoService;
 
     @GetMapping
-    public List<CandidatoDTO> list() {
-        return candidatoService.list();
+    public List<CandidatoDTO> list(@RequestParam(value = "idCandidato", required = false) Integer idCandidato) {
+        return candidatoService.list(idCandidato);
     }
 
     @PostMapping

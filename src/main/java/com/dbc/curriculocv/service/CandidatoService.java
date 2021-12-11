@@ -18,14 +18,20 @@ public class CandidatoService {
     private final CandidatoRepository candidatoRepository;
     private final ObjectMapper objectMapper;
 
-    public List<CandidatoDTO> list() {
-        return candidatoRepository.findAll()
+    public List<CandidatoDTO> list(Integer idCandidato) {
+        if (idCandidato == null) {
+            return candidatoRepository.findAll()
+                    .stream()
+                    .map(candidato -> objectMapper.convertValue(candidato, CandidatoDTO.class))
+                    .collect(Collectors.toList());
+        }
+        return candidatoRepository.findById(idCandidato)
                 .stream()
                 .map(candidato -> objectMapper.convertValue(candidato, CandidatoDTO.class))
                 .collect(Collectors.toList());
     }
 
-    public CandidatoDTO create(CandidatoCreateDTO candidatoCreateDTO) {
+    public CandidatoDTO create(CandidatoCreateDTO candidatoCreateDTO) { //TODO FAZER EXCEPTION DO CPF ERRO DUPLICATE KEY
         Candidato entity = objectMapper.convertValue(candidatoCreateDTO, Candidato.class);
         Candidato save = candidatoRepository.save(entity);
         return objectMapper.convertValue(save, CandidatoDTO.class);
