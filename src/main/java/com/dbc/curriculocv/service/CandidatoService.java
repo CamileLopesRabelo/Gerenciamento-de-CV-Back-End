@@ -1,7 +1,6 @@
 package com.dbc.curriculocv.service;
 
-import com.dbc.curriculocv.dto.CandidatoCreateDTO;
-import com.dbc.curriculocv.dto.CandidatoDTO;
+import com.dbc.curriculocv.dto.*;
 import com.dbc.curriculocv.entity.Candidato;
 import com.dbc.curriculocv.exceptions.RegraDeNegocioException;
 import com.dbc.curriculocv.repository.CandidatoRepository;
@@ -52,5 +51,37 @@ public class CandidatoService {
     public void delete(Integer idCandidato) throws RegraDeNegocioException {
         Candidato candidato = candidatoRepository.findById(idCandidato).orElseThrow(() -> new RegraDeNegocioException("Candidato não encontrado"));
         candidatoRepository.delete(candidato);
+    }
+
+    public List<CandidatoDadosExperienciasDTO> listCandidatosDadosExperiencias(Integer idCandidato) {
+        if(idCandidato == null) {
+            return candidatoRepository.findAll()
+                    .stream()
+                    .map(this::setCandidatoDadosExperienciasDTO)
+                    .collect(Collectors.toList());
+        }
+        return candidatoRepository.findById(idCandidato)
+                .stream()
+                .map(this::setCandidatoDadosExperienciasDTO)
+                .collect(Collectors.toList());
+    }
+
+    public CandidatoDadosExperienciasDTO setCandidatoDadosExperienciasDTO(Candidato candidato) {
+        CandidatoDadosExperienciasDTO candidatoDadosExperienciasDTO = new CandidatoDadosExperienciasDTO();
+        candidatoDadosExperienciasDTO.setCandidato(objectMapper.convertValue(candidato, CandidatoDTO.class));
+        candidatoDadosExperienciasDTO.setDadosEscolares(
+                candidato.getDadosEscolares()
+                        .stream()
+                        .map(dadoEscolar -> objectMapper.convertValue(dadoEscolar, DadosEscolaresDTO.class))
+                        .collect(Collectors.toList())
+
+        );
+        candidatoDadosExperienciasDTO.setExperiencias(
+                candidato.getExperiencias()
+                        .stream()
+                        .map(experiencia -> objectMapper.convertValue(experiencia, ExperienciasDTO.class))
+                        .collect(Collectors.toList())
+        );
+        return candidatoDadosExperienciasDTO;
     }
 }
