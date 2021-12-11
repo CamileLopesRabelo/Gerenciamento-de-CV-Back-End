@@ -31,5 +31,6 @@ public class Experiencias {
 
     @JsonIgnore
     @ManyToOne
+    @JoinColumn(name = "fk_candidato_id_candidato", referencedColumnName = "id_candidato")
     private Candidato candidato;
 }

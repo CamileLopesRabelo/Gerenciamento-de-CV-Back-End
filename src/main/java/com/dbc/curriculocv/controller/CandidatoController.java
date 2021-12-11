@@ -2,6 +2,7 @@ package com.dbc.curriculocv.controller;
 
 import com.dbc.curriculocv.dto.CandidatoCreateDTO;
 import com.dbc.curriculocv.dto.CandidatoDTO;
+import com.dbc.curriculocv.dto.CandidatoDadosExperienciasDTO;
 import com.dbc.curriculocv.exceptions.RegraDeNegocioException;
 import com.dbc.curriculocv.service.CandidatoService;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,13 @@ public class CandidatoController {
     private final CandidatoService candidatoService;
 
     @GetMapping
-    public List<CandidatoDTO> list() {
-        return candidatoService.list();
+    public List<CandidatoDTO> list(@RequestParam(value = "idCandidato", required = false) Integer idCandidato) {
+        return candidatoService.list(idCandidato);
+    }
+
+    @GetMapping("/dados-completos")
+    public List<CandidatoDadosExperienciasDTO> listCandidatosDadosExperiencias(@RequestParam(value = "idCandidato", required = false) Integer idCandidato) {
+        return candidatoService.listCandidatosDadosExperiencias(idCandidato);
     }
 
     @PostMapping
