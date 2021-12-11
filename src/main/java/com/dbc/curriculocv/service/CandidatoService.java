@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,17 +18,17 @@ public class CandidatoService {
     private final CandidatoRepository candidatoRepository;
     private final ObjectMapper objectMapper;
 
-    public List<CandidatoDTO> list(Integer idCandidato) {
+    public List<CandidatoDTO> list(Integer idCandidato) throws RegraDeNegocioException {
+        List<CandidatoDTO>  candidatoByID = new ArrayList<>();
         if (idCandidato == null) {
             return candidatoRepository.findAll()
                     .stream()
                     .map(candidato -> objectMapper.convertValue(candidato, CandidatoDTO.class))
                     .collect(Collectors.toList());
         }
-        return candidatoRepository.findById(idCandidato)
-                .stream()
-                .map(candidato -> objectMapper.convertValue(candidato, CandidatoDTO.class))
-                .collect(Collectors.toList());
+        Candidato candidatoEntity = candidatoRepository.findById(idCandidato).orElseThrow(() -> new RegraDeNegocioException("Candidato não encontrado"));
+        candidatoByID.add(objectMapper.convertValue(candidatoEntity, CandidatoDTO.class));
+        return candidatoByID;
     }
 
     public CandidatoDTO create(CandidatoCreateDTO candidatoCreateDTO) { //TODO FAZER EXCEPTION DO CPF ERRO DUPLICATE KEY
