@@ -35,7 +35,7 @@ public class VagaService {
     public VagaCandidatoDTO vincularCandidatoAVaga(Integer idCandidato, Integer idVaga) throws RegraDeNegocioException {
         Candidato candidatoentity = candidatoRepository.findById(idCandidato).orElseThrow(() -> new RegraDeNegocioException("Candidato não encontrado"));
         Vaga vagaEntity = vagaRepository.findById(idVaga).orElseThrow(() -> new RegraDeNegocioException("Vaga não encontrada"));
-        Set<Candidato> candidatos = vagaEntity.getCandidatos();
+        List<Candidato> candidatos = vagaEntity.getCandidatos();
         candidatos.add(candidatoentity);
         vagaEntity.setCandidatos(candidatos);
         Vaga vagaSave = vagaRepository.save(vagaEntity);
