@@ -1,12 +1,9 @@
 package com.dbc.curriculocv.controller;
 
-import com.dbc.curriculocv.client.VagasCompleoClient;
-import com.dbc.curriculocv.dto.VagasDto;
-import com.dbc.curriculocv.dto.VagasFiltradasDto;
+import com.dbc.curriculocv.dto.VagasFiltradasDTO;
 import com.dbc.curriculocv.service.VagasCompleoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.bson.Document;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,13 +14,10 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Slf4j
 public class VagasCompleoController {
-
     private final VagasCompleoService vagasCompleoService;
 
-
     @GetMapping
-    public VagasFiltradasDto list() {
+    public VagasFiltradasDTO list() {
         return vagasCompleoService.list();
     }
-
 }
