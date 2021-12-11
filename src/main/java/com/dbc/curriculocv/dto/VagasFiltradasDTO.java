@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class VagasFiltradasDto {
+public class VagasFiltradasDTO {
     private List<VagasCompleoDTO> vagaGeralList;
 
     @ApiModelProperty(value = "Total de Vagas")

@@ -1,10 +1,9 @@
 package com.dbc.curriculocv.client;
 
-import com.dbc.curriculocv.dto.VagasDto;
+import com.dbc.curriculocv.dto.VagasDTO;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
-import org.bson.Document;
 import org.springframework.cloud.openfeign.FeignClient;
 
 
@@ -13,6 +12,6 @@ import org.springframework.cloud.openfeign.FeignClient;
 public interface VagasCompleoClient {
 
     @RequestLine("GET /api/relatorios/listarRelatorioVagasGeral?Pagina={Pagina}&Quantidade={Quantidade}")
-    VagasDto listar(@Param("token") String token, @Param("Pagina") Integer pagina,
+    VagasDTO listar(@Param("token") String token, @Param("Pagina") Integer pagina,
                     @Param("Quantidade") Integer quantidade);
     }
