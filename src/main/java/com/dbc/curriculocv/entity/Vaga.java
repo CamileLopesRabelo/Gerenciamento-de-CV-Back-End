@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -60,5 +61,5 @@ public class Vaga {
             joinColumns = @JoinColumn(name = "fk_vaga"),
             inverseJoinColumns = @JoinColumn(name = "fk_candidato")
     )
-    private Set<Candidato> candidatos;
+    private List<Candidato> candidatos;
 }
