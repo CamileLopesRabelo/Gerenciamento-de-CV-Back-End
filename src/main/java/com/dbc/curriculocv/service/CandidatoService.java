@@ -54,17 +54,17 @@ public class CandidatoService {
         candidatoRepository.delete(candidato);
     }
 
-    public List<CandidatoDadosExperienciasDTO> listCandidatosDadosExperiencias(Integer idCandidato) {
+    public List<CandidatoDadosExperienciasDTO> listCandidatosDadosExperiencias(Integer idCandidato) throws RegraDeNegocioException {
+        List<CandidatoDadosExperienciasDTO> candidatoById = new ArrayList<>();
         if(idCandidato == null) {
             return candidatoRepository.findAll()
                     .stream()
                     .map(this::setCandidatoDadosExperienciasDTO)
                     .collect(Collectors.toList());
         }
-        return candidatoRepository.findById(idCandidato)
-                .stream()
-                .map(this::setCandidatoDadosExperienciasDTO)
-                .collect(Collectors.toList());
+        Candidato candidatoEntity = candidatoRepository.findById(idCandidato).orElseThrow(() -> new RegraDeNegocioException("Candidato não encontrado"));
+        candidatoById.add(setCandidatoDadosExperienciasDTO(candidatoEntity));
+        return candidatoById;
     }
 
     public CandidatoDadosExperienciasDTO setCandidatoDadosExperienciasDTO(Candidato candidato) {
