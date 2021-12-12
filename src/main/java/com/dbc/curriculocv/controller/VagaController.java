@@ -1,16 +1,15 @@
 package com.dbc.curriculocv.controller;
 
 import com.dbc.curriculocv.dto.VagaCandidatoDTO;
+import com.dbc.curriculocv.dto.VagasFiltradasDTO;
 import com.dbc.curriculocv.exceptions.RegraDeNegocioException;
 import com.dbc.curriculocv.service.VagaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/vaga")
@@ -18,6 +17,11 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class VagaController {
     private final VagaService vagaService;
+
+    @GetMapping
+    public List<VagasFiltradasDTO> list() {
+        return vagaService.list();
+    }
 
     @PostMapping
     public void updateTable() {
@@ -28,4 +32,5 @@ public class VagaController {
     public VagaCandidatoDTO vincularCandidatoAVaga(@RequestParam @Valid Integer idCandidato, @RequestParam @Valid Integer idVaga) throws RegraDeNegocioException {
         return vagaService.vincularCandidatoAVaga(idCandidato, idVaga);
     }
+
 }
