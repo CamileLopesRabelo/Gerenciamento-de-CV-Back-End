@@ -70,4 +70,33 @@ public class VagaService {
         vagaById.add(objectMapper.convertValue(vagaEntity, VagaDTO.class));
         return vagaById;
     }
+
+    public List<VagaCandidatoDTO> listVagaCandidato(Integer idVaga) throws RegraDeNegocioException {
+        List<VagaCandidatoDTO> vagaById = new ArrayList<>();
+        if (idVaga == null) {
+            return vagaRepository.findAll()
+                    .stream()
+                    .map(vaga -> {
+                        VagaCandidatoDTO vagaCandidatoDTO = new VagaCandidatoDTO();
+                        vagaCandidatoDTO.setVaga(objectMapper.convertValue(vaga, VagaDTO.class));
+                        vagaCandidatoDTO.setCandidatos(
+                                vaga.getCandidatos()
+                                .stream()
+                                .map(candidato -> objectMapper.convertValue(candidato, CandidatoDTO.class))
+                                .collect(Collectors.toList())
+                        );
+                        return vagaCandidatoDTO;
+                    })
+                    .collect(Collectors.toList());
+        }
+        Vaga vagaEntity = vagaRepository.findById(idVaga).orElseThrow(() -> new RegraDeNegocioException("Vaga não encontrada"));
+        vagaById.add(new VagaCandidatoDTO(
+                objectMapper.convertValue(vagaEntity, VagaDTO.class),
+                vagaEntity.getCandidatos()
+                        .stream()
+                        .map(candidato -> objectMapper.convertValue(candidato, CandidatoDTO.class))
+                        .collect(Collectors.toList())
+        ));
+        return vagaById;
+    }
 }
