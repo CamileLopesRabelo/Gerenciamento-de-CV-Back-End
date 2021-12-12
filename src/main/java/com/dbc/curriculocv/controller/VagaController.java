@@ -19,7 +19,7 @@ public class VagaController {
     private final VagaService vagaService;
 
     @PostMapping
-    public void updateTable() {
+    public void updateTable() throws RegraDeNegocioException {
         vagaService.updateTable();
     }
 
@@ -29,7 +29,7 @@ public class VagaController {
     }
 
     @GetMapping
-    public List<VagaDTO> list() {
-        return vagaService.list();
+    public List<VagaDTO> list(@RequestParam(value = "idVaga", required = false) Integer idVaga) throws RegraDeNegocioException {
+        return vagaService.list(idVaga);
     }
 }

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -22,12 +23,22 @@ public class VagaService {
     private final VagasCompleoService vagasCompleoService;
     private final ObjectMapper objectMapper;
 
-    public void updateTable() {
+    public void updateTable() throws RegraDeNegocioException {
         VagasFiltradasDTO vagasSemFiltro = vagasCompleoService.list();
         for (int i = 0; i < vagasSemFiltro.getTotalDeVagas(); i++) {
-            VagasCompleoDTO vagasCompleoDTO = vagasSemFiltro.getVagaGeralList().get(i);
-            Vaga vaga = objectMapper.convertValue(vagasCompleoDTO, Vaga.class);
-            vagaRepository.save(vaga);
+            if (vagaRepository.existsById(vagasSemFiltro.getVagaGeralList().get(i).getId())) {
+                VagasCompleoDTO vagasCompleoDTO = vagasSemFiltro.getVagaGeralList().get(i);
+                Vaga vaga = objectMapper.convertValue(vagasCompleoDTO, Vaga.class);
+                Vaga banco = vagaRepository.findById(vaga.getId()).orElseThrow(() -> new RegraDeNegocioException("Vaga não encontrada"));
+                vaga.setCandidatos(banco.getCandidatos());
+                vagaRepository.save(vaga);
+                System.out.println(i + "Vaga existente atualizada");
+            } else {
+                VagasCompleoDTO vagasCompleoDTO = vagasSemFiltro.getVagaGeralList().get(i);
+                Vaga vaga = objectMapper.convertValue(vagasCompleoDTO, Vaga.class);
+                vagaRepository.save(vaga);
+                System.out.println("Nova vaga adicionada");
+            }
         }
     }
 
@@ -47,7 +58,16 @@ public class VagaService {
         );
     }
 
-    public List<VagaDTO> list() {
-        return vagaRepository.findAll().stream().map(vaga -> objectMapper.convertValue(vaga, VagaDTO.class)).collect(Collectors.toList());
+    public List<VagaDTO> list(Integer idVaga) throws RegraDeNegocioException {
+        List<VagaDTO> vagaById = new ArrayList<>();
+        if (idVaga == null) {
+            return vagaRepository.findAll()
+                    .stream()
+                    .map(vaga -> objectMapper.convertValue(vaga, VagaDTO.class))
+                    .collect(Collectors.toList());
+        }
+        Vaga vagaEntity = vagaRepository.findById(idVaga).orElseThrow(() -> new RegraDeNegocioException("Vaga não encontrada"));
+        vagaById.add(objectMapper.convertValue(vagaEntity, VagaDTO.class));
+        return vagaById;
     }
 }
