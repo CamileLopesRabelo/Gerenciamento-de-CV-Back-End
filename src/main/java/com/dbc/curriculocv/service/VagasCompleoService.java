@@ -63,7 +63,9 @@ public class VagasCompleoService {
         for(int i = 0; i < vagas.size(); i++) {
             for (int j = 0; j < ret.getVagaGeralList().size(); j++) {
                 if (ret.getVagaGeralList().get(j).getId().equals(vagas.get(i).getId()) || ret.getVagaGeralList().get(j).getStatus().equals("Aberta")) {
-                    listaFiltrada.add(ret.getVagaGeralList().get(j));
+                    if (!listaFiltrada.contains(ret.getVagaGeralList().get(j))) {
+                        listaFiltrada.add(ret.getVagaGeralList().get(j));
+                    }
                 }
             }
         }
