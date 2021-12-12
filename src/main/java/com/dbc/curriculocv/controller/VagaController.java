@@ -18,11 +18,6 @@ import java.util.List;
 public class VagaController {
     private final VagaService vagaService;
 
-    @PostMapping
-    public void updateTable() throws RegraDeNegocioException {
-        vagaService.updateTable();
-    }
-
     @PostMapping("/vincular-candidato")
     public VagaCandidatoDTO vincularCandidatoAVaga(@RequestParam @Valid Integer idCandidato, @RequestParam @Valid Integer idVaga) throws RegraDeNegocioException {
         return vagaService.vincularCandidatoAVaga(idCandidato, idVaga);
@@ -31,5 +26,10 @@ public class VagaController {
     @GetMapping
     public List<VagaDTO> list(@RequestParam(value = "idVaga", required = false) Integer idVaga) throws RegraDeNegocioException {
         return vagaService.list(idVaga);
+    }
+
+    @GetMapping("/vagas-candidatos")
+    public List<VagaCandidatoDTO> listVagaCandidato(@RequestParam(value = "idVaga", required = false) Integer idVaga) throws RegraDeNegocioException {
+        return vagaService.listVagaCandidato(idVaga);
     }
 }
