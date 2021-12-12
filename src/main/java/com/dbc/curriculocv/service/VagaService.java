@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -44,5 +45,9 @@ public class VagaService {
                         .map(candidato -> objectMapper.convertValue(candidato, CandidatoDTO.class))
                         .collect(Collectors.toList())
         );
+    }
+
+    public List<VagaDTO> list() {
+        return vagaRepository.findAll().stream().map(vaga -> objectMapper.convertValue(vaga, VagaDTO.class)).collect(Collectors.toList());
     }
 }
