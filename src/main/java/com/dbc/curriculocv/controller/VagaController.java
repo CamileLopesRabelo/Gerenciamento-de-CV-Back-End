@@ -1,6 +1,8 @@
 package com.dbc.curriculocv.controller;
 
 import com.dbc.curriculocv.dto.VagaCandidatoDTO;
+import com.dbc.curriculocv.dto.VagaDTO;
+import com.dbc.curriculocv.dto.VagasDTO;
 import com.dbc.curriculocv.dto.VagasFiltradasDTO;
 import com.dbc.curriculocv.exceptions.RegraDeNegocioException;
 import com.dbc.curriculocv.service.VagaService;
@@ -19,7 +21,7 @@ public class VagaController {
     private final VagaService vagaService;
 
     @GetMapping
-    public List<VagasFiltradasDTO> list() {
+    public List<VagaDTO> list() {
         return vagaService.list();
     }
 

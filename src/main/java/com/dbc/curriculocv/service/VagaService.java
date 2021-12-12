@@ -32,9 +32,9 @@ public class VagaService {
         }
     }
 
-    public List<VagasFiltradasDTO> list() {
+    public List<VagaDTO> list() {
         return vagaRepository.findAll().stream()
-                .map(vagas -> objectMapper.convertValue(vagas,VagasFiltradasDTO.class))
+                .map(vagas -> objectMapper.convertValue(vagas,VagaDTO.class))
                 .collect(Collectors.toList());
     }
 
