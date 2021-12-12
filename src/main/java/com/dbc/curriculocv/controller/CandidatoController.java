@@ -20,12 +20,12 @@ public class CandidatoController {
     private final CandidatoService candidatoService;
 
     @GetMapping
-    public List<CandidatoDTO> list(@RequestParam(value = "idCandidato", required = false) Integer idCandidato) {
+    public List<CandidatoDTO> list(@RequestParam(value = "idCandidato", required = false) Integer idCandidato) throws RegraDeNegocioException {
         return candidatoService.list(idCandidato);
     }
 
     @GetMapping("/dados-completos")
-    public List<CandidatoDadosExperienciasDTO> listCandidatosDadosExperiencias(@RequestParam(value = "idCandidato", required = false) Integer idCandidato) {
+    public List<CandidatoDadosExperienciasDTO> listCandidatosDadosExperiencias(@RequestParam(value = "idCandidato", required = false) Integer idCandidato) throws RegraDeNegocioException {
         return candidatoService.listCandidatosDadosExperiencias(idCandidato);
     }
 
