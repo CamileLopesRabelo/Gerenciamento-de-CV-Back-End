@@ -39,12 +39,13 @@ public class CurriculoService {
             }
 
             curriculo.setSize(file.getSize());
-            curriculo.setFileName(file.getName());
+            curriculo.setFileName(fileName);
             curriculo.setFileType(file.getContentType());
             curriculo.setData(file.getBytes());
             curriculo.setCandidato(byId.get());
 
             return curriculoRepository.save(curriculo);
+
         } catch (IOException ex) {
             throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
         }
