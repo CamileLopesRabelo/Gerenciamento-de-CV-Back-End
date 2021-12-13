@@ -1,7 +1,9 @@
 package com.dbc.curriculocv.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +13,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity(name = "CANDIDATO")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Candidato {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CANDIDATO_SEQUENCIA")
@@ -50,4 +54,8 @@ public class Candidato {
     @JsonIgnore
     @ManyToMany(mappedBy = "candidatos")
     private Set<Vaga> vagas;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "candidato")
+    private Curriculo curriculo;
 }
