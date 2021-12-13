@@ -41,6 +41,7 @@ public class VagaService {
         }
     }
 
+    @Transactional
     public VagaCandidatoDTO vincularCandidatoAVaga(Integer idCandidato, Integer idVaga) throws RegraDeNegocioException {
         Candidato candidatoentity = candidatoRepository.findById(idCandidato).orElseThrow(() -> new RegraDeNegocioException("Candidato não encontrado"));
         Vaga vagaEntity = vagaRepository.findById(idVaga).orElseThrow(() -> new RegraDeNegocioException("Vaga não encontrada"));
