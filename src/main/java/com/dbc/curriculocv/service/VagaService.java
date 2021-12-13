@@ -9,6 +9,7 @@ import com.dbc.curriculocv.repository.VagaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class VagaService {
         }
     }
 
+    @Transactional
     public VagaCandidatoDTO vincularCandidatoAVaga(Integer idCandidato, Integer idVaga) throws RegraDeNegocioException {
         Candidato candidatoentity = candidatoRepository.findById(idCandidato).orElseThrow(() -> new RegraDeNegocioException("Candidato não encontrado"));
         Vaga vagaEntity = vagaRepository.findById(idVaga).orElseThrow(() -> new RegraDeNegocioException("Vaga não encontrada"));
@@ -69,6 +71,7 @@ public class VagaService {
         return vagaById;
     }
 
+    @Transactional
     public List<VagaCandidatoDTO> listVagaCandidato(Integer idVaga) throws RegraDeNegocioException {
         List<VagaCandidatoDTO> vagaById = new ArrayList<>();
         if (idVaga == null) {
