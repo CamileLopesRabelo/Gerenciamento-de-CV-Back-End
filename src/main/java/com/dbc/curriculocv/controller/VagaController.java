@@ -32,4 +32,9 @@ public class VagaController {
     public List<VagaCandidatoDTO> listVagaCandidato(@RequestParam(value = "idVaga", required = false) Integer idVaga) throws RegraDeNegocioException {
         return vagaService.listVagaCandidato(idVaga);
     }
+
+    @DeleteMapping("/desvincular-candidato")
+    public VagaCandidatoDTO desvincularCandidatoAVaga(@RequestParam @Valid Integer idCandidato, @RequestParam @Valid Integer idVaga) throws RegraDeNegocioException {
+        return vagaService.desvincularCandidatoVaga(idCandidato, idVaga);
+    }
 }

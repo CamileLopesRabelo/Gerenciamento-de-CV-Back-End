@@ -43,10 +43,27 @@ public class VagaService {
 
     @Transactional
     public VagaCandidatoDTO vincularCandidatoAVaga(Integer idCandidato, Integer idVaga) throws RegraDeNegocioException {
-        Candidato candidatoentity = candidatoRepository.findById(idCandidato).orElseThrow(() -> new RegraDeNegocioException("Candidato não encontrado"));
+        Candidato candidatoEntity = candidatoRepository.findById(idCandidato).orElseThrow(() -> new RegraDeNegocioException("Candidato não encontrado"));
         Vaga vagaEntity = vagaRepository.findById(idVaga).orElseThrow(() -> new RegraDeNegocioException("Vaga não encontrada"));
         Set<Candidato> candidatos = vagaEntity.getCandidatos();
-        candidatos.add(candidatoentity);
+        candidatos.add(candidatoEntity);
+        vagaEntity.setCandidatos(candidatos);
+        Vaga vagaSave = vagaRepository.save(vagaEntity);
+        return new VagaCandidatoDTO(
+                objectMapper.convertValue(vagaSave, VagaDTO.class),
+                vagaSave.getCandidatos()
+                        .stream()
+                        .map(candidato -> objectMapper.convertValue(candidato, CandidatoDTO.class))
+                        .collect(Collectors.toList())
+        );
+    }
+
+    @Transactional
+    public VagaCandidatoDTO desvincularCandidatoVaga(Integer idCandidato, Integer idVaga) throws RegraDeNegocioException {
+        Candidato candidatoEntity = candidatoRepository.findById(idCandidato).orElseThrow(() -> new RegraDeNegocioException("Candidato não encontrado"));
+        Vaga vagaEntity = vagaRepository.findById(idVaga).orElseThrow(() -> new RegraDeNegocioException("Vaga não encontrada"));
+        Set<Candidato> candidatos = vagaEntity.getCandidatos();
+        candidatos.remove(candidatoEntity);
         vagaEntity.setCandidatos(candidatos);
         Vaga vagaSave = vagaRepository.save(vagaEntity);
         return new VagaCandidatoDTO(
