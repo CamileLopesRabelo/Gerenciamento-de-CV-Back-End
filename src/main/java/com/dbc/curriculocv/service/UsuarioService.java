@@ -9,6 +9,7 @@ import com.dbc.curriculocv.repository.RegraRepository;
 import com.dbc.curriculocv.repository.UsuarioRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +39,11 @@ public class UsuarioService {
         entity.setRegras(regras);
         Usuario save = usuarioRepository.save(entity);
         return new UsuarioDTO(save.getIdUsuario(), save.getNome(), save.getEmail());
+    }
+
+    public UsuarioDTO retrieveUser() {
+        int idUsuario = Integer.parseInt(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+        Optional<Usuario> usuario = usuarioRepository.findById(idUsuario);
+        return objectMapper.convertValue(usuario, UsuarioDTO.class);
     }
 }
