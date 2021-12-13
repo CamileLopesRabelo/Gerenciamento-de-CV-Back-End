@@ -32,12 +32,10 @@ public class VagaService {
                 Vaga banco = vagaRepository.findById(vaga.getId()).orElseThrow(() -> new RegraDeNegocioException("Vaga não encontrada"));
                 vaga.setCandidatos(banco.getCandidatos());
                 vagaRepository.save(vaga);
-                System.out.println(i + "Vaga existente atualizada");
             } else {
                 VagasCompleoDTO vagasCompleoDTO = vagasSemFiltro.getVagaGeralList().get(i);
                 Vaga vaga = objectMapper.convertValue(vagasCompleoDTO, Vaga.class);
                 vagaRepository.save(vaga);
-                System.out.println("Nova vaga adicionada");
             }
         }
     }

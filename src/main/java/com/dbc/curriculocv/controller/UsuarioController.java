@@ -6,10 +6,7 @@ import com.dbc.curriculocv.exceptions.RegraDeNegocioException;
 import com.dbc.curriculocv.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -23,5 +20,10 @@ public class UsuarioController {
     @PostMapping("/create-cadastrador")
     public UsuarioDTO create(@RequestBody @Valid UsuarioCreateDTO usuarioCreateDTO) throws RegraDeNegocioException {
         return usuarioService.create(usuarioCreateDTO);
+    }
+
+    @GetMapping
+    public UsuarioDTO retrieveUser(){
+        return usuarioService.retrieveUser();
     }
 }
