@@ -29,6 +29,9 @@ public class UsuarioService {
     }
 
     public UsuarioDTO create(UsuarioCreateDTO usuarioCreateDTO) throws RegraDeNegocioException {
+        if (usuarioRepository.existsByEmail(usuarioCreateDTO.getEmail())) {
+            throw new RegraDeNegocioException("Email já cadastrado");
+        }
         Usuario entity = objectMapper.convertValue(usuarioCreateDTO, Usuario.class);
         entity.setNome(usuarioCreateDTO.getNome());
         entity.setEmail(usuarioCreateDTO.getEmail());
