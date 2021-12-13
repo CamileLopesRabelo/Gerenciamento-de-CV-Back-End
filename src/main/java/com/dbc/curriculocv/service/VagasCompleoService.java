@@ -60,13 +60,17 @@ public class VagasCompleoService {
     public List<VagasCompleoDTO> filtrarVagas(VagasDTO ret) {
         List<VagasCompleoDTO> listaFiltrada = new ArrayList<>();
         List<Vaga> vagas = vagaRepository.findAll();
-        for(int i = 0; i < vagas.size(); i++) {
-            for (int j = 0; j < ret.getVagaGeralList().size(); j++) {
-                if (ret.getVagaGeralList().get(j).getId().equals(vagas.get(i).getId()) || ret.getVagaGeralList().get(j).getStatus().equals("Aberta")) {
+        for (int j = 0; j < ret.getVagaGeralList().size(); j++) {
+            for(int i = 0; i < vagas.size(); i++) {
+                if (!listaFiltrada.contains(ret.getVagaGeralList().get(j))
+                        && ((ret.getVagaGeralList().get(j).getId().equals(vagas.get(i).getId())
+                        || ret.getVagaGeralList().get(j).getStatus().equals("Aberta")))) {
                     listaFiltrada.add(ret.getVagaGeralList().get(j));
                 }
             }
+
         }
+
         return listaFiltrada;
     }
 }

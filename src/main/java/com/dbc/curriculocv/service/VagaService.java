@@ -8,6 +8,7 @@ import com.dbc.curriculocv.repository.CandidatoRepository;
 import com.dbc.curriculocv.repository.VagaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class VagaService {
     private final VagaRepository vagaRepository;
     private final CandidatoRepository candidatoRepository;
@@ -25,11 +27,13 @@ public class VagaService {
 
     public void updateTable() {
         VagasFiltradasDTO vagasSemFiltro = vagasCompleoService.list();
+        log.info("Vagas compleo listada com sucesso!");
         for (int i = 0; i < vagasSemFiltro.getTotalDeVagas(); i++) {
             VagasCompleoDTO vagasCompleoDTO = vagasSemFiltro.getVagaGeralList().get(i);
             Vaga vaga = objectMapper.convertValue(vagasCompleoDTO, Vaga.class);
             vagaRepository.save(vaga);
         }
+        log.info("vagas em aberto salva no postgrees");
     }
 
     public List<VagaDTO> list() {
