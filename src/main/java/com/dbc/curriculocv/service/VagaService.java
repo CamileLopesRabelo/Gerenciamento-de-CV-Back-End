@@ -9,6 +9,7 @@ import com.dbc.curriculocv.repository.VagaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +70,7 @@ public class VagaService {
         return vagaById;
     }
 
+    @Transactional
     public List<VagaCandidatoDTO> listVagaCandidato(Integer idVaga) throws RegraDeNegocioException {
         List<VagaCandidatoDTO> vagaById = new ArrayList<>();
         if (idVaga == null) {

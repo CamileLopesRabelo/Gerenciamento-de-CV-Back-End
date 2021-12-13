@@ -8,6 +8,7 @@ import com.dbc.curriculocv.repository.CandidatoRepository;
 import com.dbc.curriculocv.repository.CurriculoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
