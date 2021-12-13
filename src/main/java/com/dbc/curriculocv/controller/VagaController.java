@@ -2,8 +2,6 @@ package com.dbc.curriculocv.controller;
 
 import com.dbc.curriculocv.dto.VagaCandidatoDTO;
 import com.dbc.curriculocv.dto.VagaDTO;
-import com.dbc.curriculocv.dto.VagasDTO;
-import com.dbc.curriculocv.dto.VagasFiltradasDTO;
 import com.dbc.curriculocv.exceptions.RegraDeNegocioException;
 import com.dbc.curriculocv.service.VagaService;
 import lombok.RequiredArgsConstructor;
@@ -22,22 +20,18 @@ import java.util.List;
 public class VagaController {
     private final VagaService vagaService;
 
-    @GetMapping
-    public List<VagaDTO> list() {
-       log.info("listando vagas do postgrees");
-       List<VagaDTO> vagasListadas = vagaService.list();
-       log.info("vagas listadas com sucesso");
-        return vagasListadas;
-    }
-
-//    @PostMapping
-//    public void updateTable() {
-//        vagaService.updateTable();
-//    }
-
     @PostMapping("/vincular-candidato")
     public VagaCandidatoDTO vincularCandidatoAVaga(@RequestParam @Valid Integer idCandidato, @RequestParam @Valid Integer idVaga) throws RegraDeNegocioException {
         return vagaService.vincularCandidatoAVaga(idCandidato, idVaga);
     }
 
+    @GetMapping
+    public List<VagaDTO> list(@RequestParam(value = "idVaga", required = false) Integer idVaga) throws RegraDeNegocioException {
+        return vagaService.list(idVaga);
+    }
+
+    @GetMapping("/vagas-candidatos")
+    public List<VagaCandidatoDTO> listVagaCandidato(@RequestParam(value = "idVaga", required = false) Integer idVaga) throws RegraDeNegocioException {
+        return vagaService.listVagaCandidato(idVaga);
+    }
 }

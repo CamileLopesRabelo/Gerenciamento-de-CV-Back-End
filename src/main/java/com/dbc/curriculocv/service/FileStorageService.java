@@ -34,6 +34,7 @@ public class FileStorageService {
     public String storeFile(MultipartFile file) {
         // Normalizar o nome do arquivo
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        //TODO setar o id do candidato como string
 
         try {
             // Verifique se o nome do arquivo contém caracteres inválidos
