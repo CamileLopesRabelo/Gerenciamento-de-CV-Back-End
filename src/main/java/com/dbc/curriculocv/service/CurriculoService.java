@@ -44,7 +44,6 @@ public class CurriculoService {
             curriculo.setFileType(file.getContentType());
             curriculo.setData(file.getBytes());
             curriculo.setCandidato(byId.get());
-
             return curriculoRepository.save(curriculo);
 
         } catch (IOException ex) {

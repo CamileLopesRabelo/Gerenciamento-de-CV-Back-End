@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -22,10 +21,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 public class CurriculoController {
     private final ObjectMapper objectMapper;
-    private static final Logger logger = LoggerFactory.getLogger(CurriculoController.class);
+    private final CurriculoService curriculoService;
 
-    @Autowired
-    private CurriculoService curriculoService;
+    private static final Logger logger = LoggerFactory.getLogger(CurriculoController.class);
 
     @PostMapping("/uploadFile")
     public CurriculoDTO uploadFile(@RequestPart("file") MultipartFile file, Integer idCandidato) throws RegraDeNegocioException {
@@ -41,7 +39,7 @@ public class CurriculoController {
 
     @GetMapping("/downloadFile/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable Integer fileId) {
-        // Load file from database
+        // Carregar arquivo do banco de dados
         Curriculo curriculo = curriculoService.getFile(fileId);
 
         return ResponseEntity.ok()
