@@ -46,6 +46,8 @@ public class CandidatoService {
         entity.setDataNascimento(candidatoCreateDTO.getDataNascimento());
         entity.setNumero(candidatoCreateDTO.getNumero());
         entity.setTelefone(candidatoCreateDTO.getTelefone());
+        entity.setSenioridade(candidatoCreateDTO.getSenioridade());
+        entity.setCargo(candidatoCreateDTO.getCargo());
         Candidato update = candidatoRepository.save(entity);
         return objectMapper.convertValue(update, CandidatoDTO.class);
     }
