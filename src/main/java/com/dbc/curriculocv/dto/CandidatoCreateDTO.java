@@ -17,4 +17,6 @@ public class CandidatoCreateDTO {
     private Integer numero;
     private String complemento;
     private String telefone;
+    private String cargo;
+    private String senioridade;
 }

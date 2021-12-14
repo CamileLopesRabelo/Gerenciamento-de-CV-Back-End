@@ -18,4 +18,6 @@ public class CandidatoDTO {
     private String logradouro;
     private String complemento;
     private String telefone;
+    private String cargo;
+    private String senioridade;
 }

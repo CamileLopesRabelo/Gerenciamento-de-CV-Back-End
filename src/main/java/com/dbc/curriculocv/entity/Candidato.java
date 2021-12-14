@@ -43,6 +43,12 @@ public class Candidato {
     @Column(name = "telefone")
     private String telefone;
 
+    @Column(name = "cargo")
+    private String cargo;
+
+    @Column(name = "senioridade")
+    private String senioridade;
+
     @JsonIgnore
     @OneToMany(mappedBy = "candidato")
     private Set<DadosEscolares> dadosEscolares;
@@ -58,4 +64,5 @@ public class Candidato {
     @JsonIgnore
     @OneToOne(mappedBy = "candidato")
     private Curriculo curriculo;
+
 }
