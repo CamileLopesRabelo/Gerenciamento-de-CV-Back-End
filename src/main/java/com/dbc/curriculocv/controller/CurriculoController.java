@@ -17,8 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class CurriculoController {
     private final CurriculoService curriculoService;
 
-    @PostMapping("/upload-curriculo")
-    public CurriculoDTO uploadCurriculo(@RequestPart("file") MultipartFile file, @RequestParam("idCandidato") Integer idCandidato) throws RegraDeNegocioException {
+    @PostMapping("/upload-curriculo/{idCandidato}")
+    public CurriculoDTO uploadCurriculo(@RequestPart("file") MultipartFile file, @PathVariable("idCandidato") Integer idCandidato) throws RegraDeNegocioException {
         return curriculoService.uploadCurriculo(file, idCandidato);
     }
 
