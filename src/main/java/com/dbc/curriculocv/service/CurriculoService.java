@@ -54,7 +54,7 @@ public class CurriculoService {
             CurriculoDTO curriculoDTO = objectMapper.convertValue(save, CurriculoDTO.class);
             curriculoDTO.setFileDownloadUri(
                     ServletUriComponentsBuilder.fromCurrentContextPath()
-                            .path("/download-curriculo/")
+                            .path("/upload-curriculo/")
                             .path(save.getIdCurriculo().toString())
                             .toUriString()
             );
