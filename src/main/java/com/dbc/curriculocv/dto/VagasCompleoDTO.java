@@ -1,31 +1,50 @@
 package com.dbc.curriculocv.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import java.util.Date;
-
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class VagasCompleoDTO {
+    @ApiModelProperty("Identificador da vaga")
     private Integer id;
-    @JsonProperty("DataAbertura")
-    private Date dataAbertura;
+
+    @ApiModelProperty("Titulo da vaga")
     @JsonProperty("Titulo")
     private String titulo;
+
+    @ApiModelProperty("Status da vaga")
     @JsonProperty("Status")
     private String status;
-    @JsonProperty("Cliente")
-    private String cliente;
+
+    @ApiModelProperty("Responsavel da vaga")
     @JsonProperty("Responsavel")
     private String responsavel;
-    @JsonProperty("Analista")
-    private String analista;
+
+    @ApiModelProperty("PCD da vaga")
     @JsonProperty("PCD")
     private Boolean pcd;
-    @JsonProperty("Cidade")
-    private String cidade;
+
+    @ApiModelProperty("Estado da vaga")
     @JsonProperty("Estado")
     private String estado;
+
+    @ApiModelProperty("Data de Abertura da vaga")
+    @JsonProperty("DataAbertura")
+    private Date dataAbertura;
+
+    @ApiModelProperty("Cliente da vaga")
+    @JsonProperty("Cliente")
+    private String cliente;
+
+    @ApiModelProperty("Cidade da vaga")
+    @JsonProperty("Cidade")
+    private String cidade;
+
+    @ApiModelProperty("Analista da vaga")
+    @JsonProperty("Analista")
+    private String analista;
 }
