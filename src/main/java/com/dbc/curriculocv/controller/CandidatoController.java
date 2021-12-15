@@ -30,7 +30,7 @@ public class CandidatoController {
     }
 
     @PostMapping
-    public CandidatoDTO create(@RequestBody @Valid CandidatoCreateDTO candidatoCreateDTO) {
+    public CandidatoDTO create(@RequestBody @Valid CandidatoCreateDTO candidatoCreateDTO) throws RegraDeNegocioException {
         return candidatoService.create(candidatoCreateDTO);
     }
 
