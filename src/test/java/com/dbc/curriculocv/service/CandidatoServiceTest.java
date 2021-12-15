@@ -9,10 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
@@ -41,6 +37,7 @@ public class CandidatoServiceTest {
     public void listarCandidatos () throws RegraDeNegocioException {
         candidatoService.list(null);
         verify(candidatoRepository,Mockito.times(1)).findAll();
+        verify(candidatoRepository,Mockito.never()).findById(ArgumentMatchers.any());
     }
 
     @Test
@@ -54,6 +51,7 @@ public class CandidatoServiceTest {
 
         candidatoService.list(candidatoId);
         verify(candidatoRepository,Mockito.times(1)).findById(ArgumentMatchers.eq(candidatoId));
+        verify(candidatoRepository,Mockito.never()).findAll();
     }
 
 }
