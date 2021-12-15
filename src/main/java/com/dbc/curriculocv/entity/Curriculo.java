@@ -14,7 +14,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Curriculo {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CURRICULO_SEQUENCIA")
     @SequenceGenerator(name = "CURRICULO_SEQUENCIA", sequenceName = "seq_curriculo", allocationSize = 1)

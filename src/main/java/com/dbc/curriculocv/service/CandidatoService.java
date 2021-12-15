@@ -7,7 +7,6 @@ import com.dbc.curriculocv.repository.CandidatoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +31,19 @@ public class CandidatoService {
         return candidatoByID;
     }
 
-    public CandidatoDTO create(CandidatoCreateDTO candidatoCreateDTO) { //TODO FAZER EXCEPTION DO CPF ERRO DUPLICATE KEY
+    public CandidatoDTO create(CandidatoCreateDTO candidatoCreateDTO) throws RegraDeNegocioException {
+        if (candidatoRepository.existsByCpf(candidatoCreateDTO.getCpf())) {
+            throw new RegraDeNegocioException("CPF já cadastrado");
+        }
         Candidato entity = objectMapper.convertValue(candidatoCreateDTO, Candidato.class);
         Candidato save = candidatoRepository.save(entity);
         return objectMapper.convertValue(save, CandidatoDTO.class);
     }
 
     public CandidatoDTO update(Integer idCandidato, CandidatoCreateDTO candidatoCreateDTO) throws RegraDeNegocioException {
+        if (candidatoRepository.existsByCpf(candidatoCreateDTO.getCpf())) {
+            throw new RegraDeNegocioException("CPF já cadastrado");
+        }
         Candidato entity = candidatoRepository.findById(idCandidato).orElseThrow(() -> new RegraDeNegocioException("Candidato não encontrado"));
         entity.setNome(candidatoCreateDTO.getNome());
         entity.setCpf(candidatoCreateDTO.getCpf());
@@ -46,6 +51,8 @@ public class CandidatoService {
         entity.setDataNascimento(candidatoCreateDTO.getDataNascimento());
         entity.setNumero(candidatoCreateDTO.getNumero());
         entity.setTelefone(candidatoCreateDTO.getTelefone());
+        entity.setSenioridade(candidatoCreateDTO.getSenioridade());
+        entity.setCargo(candidatoCreateDTO.getCargo());
         Candidato update = candidatoRepository.save(entity);
         return objectMapper.convertValue(update, CandidatoDTO.class);
     }
@@ -86,6 +93,4 @@ public class CandidatoService {
         );
         return candidatoDadosExperienciasDTO;
     }
-
-
 }

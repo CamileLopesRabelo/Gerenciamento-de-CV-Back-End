@@ -33,4 +33,6 @@ public class CandidatoDTO {
 
     @ApiModelProperty("telefone")
     private String telefone;
+    private String cargo;
+    private String senioridade;
 }
