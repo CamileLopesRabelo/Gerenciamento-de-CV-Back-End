@@ -6,10 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class VagasFiltradasDTO {
+    @ApiModelProperty("Lista de vagas")
     private List<VagasCompleoDTO> vagaGeralList;
 
     @ApiModelProperty(value = "Total de Vagas")
