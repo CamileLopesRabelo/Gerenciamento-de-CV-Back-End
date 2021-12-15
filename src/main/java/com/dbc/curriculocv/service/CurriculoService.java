@@ -33,6 +33,11 @@ public class CurriculoService {
     public CurriculoDTO uploadCurriculo(MultipartFile file, Integer idCandidato) throws RegraDeNegocioException {
         Candidato byId = candidatoRepository.findById(idCandidato).orElseThrow(() -> new RegraDeNegocioException("Candidato não encontrado"));
         String fileName = StringUtils.cleanPath(new BCryptPasswordEncoder().encode(idCandidato + "_" + byId.getNome()) + ".pdf");
+
+        if(!file.getContentType().equalsIgnoreCase("application/pdf")){
+            throw new RegraDeNegocioException("Arquivo enviado deve ser no formato pdf");
+        }
+
         try {
             if (fileName.contains("..")) {
                 throw new FileStorageException("O arquivo tem um nome inválido " + fileName);
