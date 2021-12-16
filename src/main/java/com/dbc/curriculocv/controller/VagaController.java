@@ -63,7 +63,9 @@ public class VagaController {
     })
     @ApiOperation("Desvincula um candidato da vaga")
     @DeleteMapping("/desvincular-candidato")
-    public VagaCandidatoDTO desvincularCandidatoAVaga(@RequestParam @Valid Integer idCandidato, @RequestParam @Valid Integer idVaga) throws RegraDeNegocioException {
+    public VagaCandidatoDTO desvincularCandidatoAVaga(@RequestParam @Valid Integer idCandidato,
+                                                      @RequestParam @Valid Integer idVaga)
+            throws RegraDeNegocioException {
         return vagaService.desvincularCandidatoVaga(idCandidato, idVaga);
     }
 
@@ -74,7 +76,8 @@ public class VagaController {
     })
     @ApiOperation("Lista as vagas SEM os candidatos paginada")
     @GetMapping("/vaga-paginada")
-    public VagaPaginadaDTO listaVagasPaginada(@RequestParam(value = "pagina") Integer pagina, @RequestParam(value = "quantidade") Integer quantidade) {
+    public VagaPaginadaDTO listaVagasPaginada(@RequestParam(value = "pagina") Integer pagina,
+                                              @RequestParam(value = "quantidade") Integer quantidade) {
         return vagaService.listaVagasPaginada(pagina, quantidade);
     }
 
@@ -85,7 +88,8 @@ public class VagaController {
     })
     @ApiOperation("Lista as vagas COM os candidatos paginada")
     @GetMapping("/vaga-candidato-paginada")
-    public VagaCandidatoPaginadaDTO listaVagasCandidatosPaginada(@RequestParam(value = "pagina") Integer pagina, @RequestParam(value = "quantidade") Integer quantidade) {
+    public VagaCandidatoPaginadaDTO listaVagasCandidatosPaginada(@RequestParam(value = "pagina") Integer pagina,
+                                                                 @RequestParam(value = "quantidade") Integer quantidade) {
         return vagaService.listaVagasCandidatoPaginada(pagina, quantidade);
     }
 }
