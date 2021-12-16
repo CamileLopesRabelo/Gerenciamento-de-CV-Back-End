@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class TokenService {
-
     static final String TOKEN_PREFIX = "Bearer";
     static final String HEADER_STRING = "Authorization";
     private static final String CLAIM_PERMISSOES = "permissoes";
@@ -42,7 +41,7 @@ public class TokenService {
                 .collect(Collectors.toList());
 
         String jwtToken = Jwts.builder()
-                .setIssuer("pokemon-projeto")
+                .setIssuer("curriculo-cv")
                 .claim(CLAIM_PERMISSOES, permissoes)
                 .setSubject(usuario.getIdUsuario().toString())
                 .setIssuedAt(generateDate)
@@ -66,7 +65,7 @@ public class TokenService {
             List<String> permissoes = (List<String>) claims.get(CLAIM_PERMISSOES);
 
             List<GrantedAuthority> grantedAuthorities = permissoes.stream()
-                    .map(permissao -> new SimpleGrantedAuthority(permissao))
+                    .map(SimpleGrantedAuthority::new)
                     .collect(Collectors.toList());
 
             if (user != null) {

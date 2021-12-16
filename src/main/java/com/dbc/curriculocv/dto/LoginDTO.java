@@ -14,7 +14,7 @@ public class LoginDTO {
     @NotEmpty
     @NotBlank
     @Email
-    @ApiModelProperty("Usuário")
+    @ApiModelProperty("Login de acesso, deve ser o e-mail cadastrado")
     private String usuario;
 
     @NotNull
