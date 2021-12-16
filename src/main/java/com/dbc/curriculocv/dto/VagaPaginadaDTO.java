@@ -1,27 +1,28 @@
 package com.dbc.curriculocv.dto;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
-import org.bson.Document;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class VagasDTO {
-    @ApiModelProperty("Lista de vagas, vindas da API Compleo")
-    private List<VagasCompleoDTO> vagaGeralList;
+public class VagaPaginadaDTO {
+    @ApiModelProperty("Lista de vagas")
+    private List<VagaDTO> vagas;
 
     @ApiModelProperty("Total de vagas")
-    private Integer total;
+    private Long vagasTotal;
 
     @ApiModelProperty("Total de páginas")
-    private Integer paginas;
+    private Integer paginasTotal;
 
     @ApiModelProperty("Página atual")
-    private Integer pagina;
+    private Integer paginaAtual;
 
     @ApiModelProperty("Quantidade mostrada na página atual")
-    private Integer quantidade;
+    private Integer quantidadeVagasNaPaginaAtual;
 }

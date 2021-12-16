@@ -8,8 +8,10 @@ import com.dbc.curriculocv.repository.CandidatoRepository;
 import com.dbc.curriculocv.repository.VagaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -98,9 +100,9 @@ public class VagaService {
                         vagaCandidatoDTO.setVaga(objectMapper.convertValue(vaga, VagaDTO.class));
                         vagaCandidatoDTO.setCandidatos(
                                 vaga.getCandidatos()
-                                .stream()
-                                .map(candidato -> objectMapper.convertValue(candidato, CandidatoDTO.class))
-                                .collect(Collectors.toList())
+                                        .stream()
+                                        .map(candidato -> objectMapper.convertValue(candidato, CandidatoDTO.class))
+                                        .collect(Collectors.toList())
                         );
                         return vagaCandidatoDTO;
                     })
@@ -115,5 +117,40 @@ public class VagaService {
                         .collect(Collectors.toList())
         ));
         return vagaById;
+    }
+
+    public VagaPaginadaDTO listaVagasPaginada(Integer pagina, Integer quantidade) {
+        Pageable pageable = PageRequest.of(pagina, quantidade);
+        Page<Vaga> paginacao = vagaRepository.findAll(pageable);
+        return new VagaPaginadaDTO(
+                paginacao.getContent().stream().map(vaga -> objectMapper.convertValue(vaga, VagaDTO.class)).collect(Collectors.toList()),
+                paginacao.getTotalElements(),
+                paginacao.getTotalPages(),
+                paginacao.getPageable().getPageNumber(),
+                paginacao.getPageable().getPageSize()
+        );
+    }
+
+    @Transactional
+    public VagaCandidatoPaginadaDTO listaVagasCandidatoPaginada(Integer pagina, Integer quantidade) {
+        Pageable pageable = PageRequest.of(pagina, quantidade);
+        Page<Vaga> paginacao = vagaRepository.findAll(pageable);
+        return new VagaCandidatoPaginadaDTO(
+                paginacao.getContent().stream().map(vaga -> {
+                    VagaCandidatoDTO vagaCandidatoDTO = new VagaCandidatoDTO();
+                    vagaCandidatoDTO.setVaga(objectMapper.convertValue(vaga, VagaDTO.class));
+                    vagaCandidatoDTO.setCandidatos(
+                            vaga.getCandidatos()
+                                    .stream()
+                                    .map(candidato -> objectMapper.convertValue(candidato, CandidatoDTO.class))
+                                    .collect(Collectors.toList())
+                    );
+                    return vagaCandidatoDTO;
+                }).collect(Collectors.toList()),
+                paginacao.getTotalElements(),
+                paginacao.getTotalPages(),
+                paginacao.getPageable().getPageNumber(),
+                paginacao.getPageable().getPageSize()
+        );
     }
 }

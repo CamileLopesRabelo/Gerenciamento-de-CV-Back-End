@@ -93,4 +93,6 @@ public class CandidatoService {
         );
         return candidatoDadosExperienciasDTO;
     }
+
+
 }
