@@ -1,8 +1,6 @@
 package com.dbc.curriculocv.controller;
 
-import com.dbc.curriculocv.dto.CandidatoCreateDTO;
-import com.dbc.curriculocv.dto.CandidatoDTO;
-import com.dbc.curriculocv.dto.CandidatoDadosExperienciasDTO;
+import com.dbc.curriculocv.dto.*;
 import com.dbc.curriculocv.exceptions.RegraDeNegocioException;
 import com.dbc.curriculocv.service.CandidatoService;
 import io.swagger.annotations.ApiOperation;
@@ -75,5 +73,29 @@ public class CandidatoController {
     @DeleteMapping
     public void delete(@RequestParam Integer idCandidato) throws RegraDeNegocioException {
         candidatoService.delete(idCandidato);
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Lista de candidatos paginada"),
+            @ApiResponse(code = 400, message = "Você não tem permissão para acessar esse recurso"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção no sistema")
+    })
+    @ApiOperation("Lista os candidatos paginada")
+    @GetMapping("/candidato-paginada")
+    public CandidatoPaginadaDTO listaCandidatosPaginada(@RequestParam(value = "pagina") Integer pagina,
+                                                        @RequestParam(value = "quantidade") Integer quantidade) {
+        return candidatoService.listaCandidatosPaginada(pagina, quantidade);
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Lista candidatos completos paginada"),
+            @ApiResponse(code = 400, message = "Você não tem permissão para acessar esse recurso"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção no sistema")
+    })
+    @ApiOperation("Lista os candidatos completos paginada")
+    @GetMapping("/candidato-completos-paginada")
+    public CandidatoDadosExperienciasPaginadaDTO listaCandidatosDadosExperienciasPaginada(@RequestParam(value = "pagina") Integer pagina,
+                                                                                          @RequestParam(value = "quantidade") Integer quantidade) {
+        return candidatoService.listaCandidatosDadosExperiencias(pagina, quantidade);
     }
 }
