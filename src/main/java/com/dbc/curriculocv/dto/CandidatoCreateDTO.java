@@ -12,12 +12,14 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CandidatoCreateDTO {
-    @NotEmpty
+    @NotBlank
+    @NotNull
     @NotEmpty
     @ApiModelProperty("Nome completo do candidato")
     private String nome;
 
-    @NotEmpty
+    @NotBlank
+    @NotNull
     @NotEmpty
     @Size(min = 11, max = 11, message = "O CPF deve conter exatamente 11 números")
     @Pattern(regexp = "^[0-9]+$", message = "O CPF deve conter apenas números")
@@ -29,7 +31,8 @@ public class CandidatoCreateDTO {
     @ApiModelProperty("Data de nascimento do candidato, deve ser uma data passada")
     private LocalDate dataNascimento;
 
-    @NotEmpty
+    @NotBlank
+    @NotNull
     @NotEmpty
     @ApiModelProperty("Logradouro do endereço do candidato. (Ex. Rua Assis Brasil) ")
     private String logradouro;
@@ -42,18 +45,21 @@ public class CandidatoCreateDTO {
     @ApiModelProperty("Complemento do endereço do candidato, pode ser nulo")
     private String complemento;
 
-    @NotEmpty
+    @NotBlank
+    @NotNull
     @NotEmpty
     @ApiModelProperty("Telefone de contato do candidato")
     private String telefone;
 
-    @NotEmpty
+    @NotBlank
+    @NotNull
     @NotEmpty
     @ApiModelProperty("Cargo do candidato")
     private String cargo;
 
+    @NotNull
     @NotEmpty
-    @NotEmpty
+    @NotBlank
     @ApiModelProperty("Senioridade do candidato")
     private String senioridade;
 }
