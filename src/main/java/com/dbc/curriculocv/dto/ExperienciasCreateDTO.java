@@ -20,7 +20,6 @@ public class ExperienciasCreateDTO {
     private String nomeEmpresa;
 
     @NotNull
-    @NotEmpty
     @Past
     @ApiModelProperty("Data de início, deve ser uma data passada")
     private Date dataInicio;
