@@ -16,12 +16,14 @@ public class CandidatoDTO {
     @ApiModelProperty("Identificador do candidato")
     private Integer idCandidato;
 
+    @NotBlank
     @NotEmpty
-    @NotEmpty
+    @NotNull
     @ApiModelProperty("Nome completo do candidato")
     private String nome;
 
-    @NotEmpty
+    @NotBlank
+    @NotNull
     @NotEmpty
     @Size(min = 11, max = 11, message = "O CPF deve conter exatamente 11 números")
     @Pattern(regexp = "^[0-9]+$", message = "O CPF deve conter apenas números")
@@ -33,8 +35,9 @@ public class CandidatoDTO {
     @ApiModelProperty("Data de nascimento do candidato, deve ser uma data passada")
     private LocalDate dataNascimento;
 
+    @NotBlank
     @NotEmpty
-    @NotEmpty
+    @NotNull
     @ApiModelProperty("Logradouro do endereço do candidato. (Ex. Rua Assis Brasil) ")
     private String logradouro;
 
@@ -46,18 +49,21 @@ public class CandidatoDTO {
     @ApiModelProperty("Complemento do endereço do candidato, pode ser nulo")
     private String complemento;
 
+    @NotBlank
     @NotEmpty
-    @NotEmpty
+    @NotNull
     @ApiModelProperty("Telefone de contato do candidato")
     private String telefone;
 
+    @NotBlank
     @NotEmpty
-    @NotEmpty
+    @NotNull
     @ApiModelProperty("Cargo do candidato")
     private String cargo;
 
+    @NotBlank
     @NotEmpty
-    @NotEmpty
+    @NotNull
     @ApiModelProperty("Senioridade do candidato")
     private String senioridade;
 }

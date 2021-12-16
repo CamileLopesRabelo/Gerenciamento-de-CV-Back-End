@@ -23,7 +23,6 @@ public class DadosEscolaresDTO {
     private String instituicao;
 
     @NotNull
-    @NotEmpty
     @Past
     @ApiModelProperty("Data de início, deve ser uma data passada")
     private Date dataInicio;
