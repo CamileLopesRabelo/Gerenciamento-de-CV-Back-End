@@ -5,10 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
@@ -23,13 +20,22 @@ public class UsuarioCreateDTO {
     @NotNull
     @NotEmpty
     @NotBlank
-    @Email
+    @Email(message = "E-mail inválido")
     @ApiModelProperty("E-mail do usuário")
     private String email;
 
     @NotNull
     @NotEmpty
     @NotBlank
-    @ApiModelProperty("Senha do usuário")
+    @Size(min = 8, max = 32, message = "A senha deve conter no mínimo 8 e no máximo 32 caracteres")
+    @Pattern.List({
+            @Pattern(regexp = "(?=.*[0-9]).+", message = "A senha deve conter ao menos um número"),
+            @Pattern(regexp = "(?=.*[a-z]).+", message = "A senha deve conter ao menos uma letra minuscula"),
+            @Pattern(regexp = "(?=.*[A-Z]).+", message = "A senha deve conter ao menos uma letra maiuscula"),
+            @Pattern(regexp = "(?=.*[!@#$%^&*+=?]).+", message ="A senha deve conter ao menos um caracter especial (!@#$%^&*+=?)"),
+            @Pattern(regexp = "(?=\\S+$).+", message = "A senha não pode conter espaços em branco")
+    })
+    @ApiModelProperty("Senha do usuário, deve conter no mínimo oito caracteres, pelo menos uma letra maiúscula, " +
+            "uma letra minúscula, um número e um caractere especial")
     private String senha;
 }
