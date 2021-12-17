@@ -13,8 +13,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,9 +36,7 @@ public class TokenService {
         //expiracao
         Date exp = new Date(generateDate.getTime() + Long.parseLong(expiration));
 
-        List<String> permissoes = usuario.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
+        List<String> permissoes = new ArrayList<>(Collections.singletonList("ROLE_CADASTRADOR"));
 
         String jwtToken = Jwts.builder()
                 .setIssuer("curriculo-cv")

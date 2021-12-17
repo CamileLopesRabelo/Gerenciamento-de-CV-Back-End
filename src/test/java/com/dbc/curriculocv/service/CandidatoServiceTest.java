@@ -1,6 +1,5 @@
 package com.dbc.curriculocv.service;
 
-import com.dbc.curriculocv.dto.CandidatoDTO;
 import com.dbc.curriculocv.entity.Candidato;
 import com.dbc.curriculocv.exceptions.RegraDeNegocioException;
 import com.dbc.curriculocv.repository.CandidatoRepository;
