@@ -30,18 +30,9 @@ public class Usuario implements UserDetails {
     @Column(name = "senha")
     private String senha;
 
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(
-            name = "USUARIO_REGRA",
-            joinColumns = @JoinColumn(name = "id_usuario"),
-            inverseJoinColumns = @JoinColumn(name = "id_regra")
-    )
-    private List<Regra> regras;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return regras;
+        return null;
     }
 
     @Override
