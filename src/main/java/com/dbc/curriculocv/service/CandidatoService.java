@@ -6,6 +6,9 @@ import com.dbc.curriculocv.exceptions.RegraDeNegocioException;
 import com.dbc.curriculocv.repository.CandidatoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -92,5 +95,45 @@ public class CandidatoService {
                         .collect(Collectors.toList())
         );
         return candidatoDadosExperienciasDTO;
+    }
+
+    public CandidatoPaginadaDTO listaCandidatosPaginada(Integer pagina, Integer quantidade) {
+        Pageable pageable = PageRequest.of(pagina, quantidade);
+        Page<Candidato> paginacao = candidatoRepository.findAll(pageable);
+        return new CandidatoPaginadaDTO(
+                paginacao.getContent().stream().map(candidato -> objectMapper.convertValue(candidato, CandidatoDTO.class)).collect(Collectors.toList()),
+                paginacao.getTotalElements(),
+                paginacao.getTotalPages(),
+                paginacao.getPageable().getPageNumber(),
+                paginacao.getPageable().getPageSize()
+        );
+    }
+
+    public CandidatoDadosExperienciasPaginadaDTO listaCandidatosDadosExperiencias(Integer pagina, Integer quantidade) {
+        Pageable pageable = PageRequest.of(pagina, quantidade);
+        Page<Candidato> paginacao = candidatoRepository.findAll(pageable);
+        return new CandidatoDadosExperienciasPaginadaDTO(
+                paginacao.getContent().stream().map(candidato -> {
+                    CandidatoDadosExperienciasDTO candidatoDadosExperienciasDTO = new CandidatoDadosExperienciasDTO();
+                    candidatoDadosExperienciasDTO.setCandidato(objectMapper.convertValue(candidato, CandidatoDTO.class));
+                    candidatoDadosExperienciasDTO.setDadosEscolares(
+                            candidato.getDadosEscolares()
+                                    .stream()
+                                    .map(dadosEscolares -> objectMapper.convertValue(dadosEscolares, DadosEscolaresDTO.class))
+                                    .collect(Collectors.toList())
+                    );
+                    candidatoDadosExperienciasDTO.setExperiencias(
+                            candidato.getExperiencias()
+                                    .stream()
+                                    .map(experiencias -> objectMapper.convertValue(experiencias, ExperienciasDTO.class))
+                                    .collect(Collectors.toList())
+                    );
+                    return candidatoDadosExperienciasDTO;
+                }).collect(Collectors.toList()),
+                paginacao.getTotalElements(),
+                paginacao.getTotalPages(),
+                paginacao.getPageable().getPageNumber(),
+                paginacao.getPageable().getPageSize()
+        );
     }
 }

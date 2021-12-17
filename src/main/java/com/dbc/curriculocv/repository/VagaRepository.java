@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VagaRepository extends JpaRepository<Vaga, Integer> {
     boolean existsById(Integer id);
+
+
 }

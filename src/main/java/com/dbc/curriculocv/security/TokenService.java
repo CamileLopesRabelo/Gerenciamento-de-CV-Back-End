@@ -13,14 +13,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class TokenService {
-
     static final String TOKEN_PREFIX = "Bearer";
     static final String HEADER_STRING = "Authorization";
     private static final String CLAIM_PERMISSOES = "permissoes";
@@ -37,12 +36,10 @@ public class TokenService {
         //expiracao
         Date exp = new Date(generateDate.getTime() + Long.parseLong(expiration));
 
-        List<String> permissoes = usuario.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
+        List<String> permissoes = new ArrayList<>(Collections.singletonList("ROLE_CADASTRADOR"));
 
         String jwtToken = Jwts.builder()
-                .setIssuer("pokemon-projeto")
+                .setIssuer("curriculo-cv")
                 .claim(CLAIM_PERMISSOES, permissoes)
                 .setSubject(usuario.getIdUsuario().toString())
                 .setIssuedAt(generateDate)
@@ -66,7 +63,7 @@ public class TokenService {
             List<String> permissoes = (List<String>) claims.get(CLAIM_PERMISSOES);
 
             List<GrantedAuthority> grantedAuthorities = permissoes.stream()
-                    .map(permissao -> new SimpleGrantedAuthority(permissao))
+                    .map(SimpleGrantedAuthority::new)
                     .collect(Collectors.toList());
 
             if (user != null) {

@@ -3,6 +3,9 @@ package com.dbc.curriculocv.controller;
 import com.dbc.curriculocv.dto.LoginDTO;
 import com.dbc.curriculocv.entity.Usuario;
 import com.dbc.curriculocv.security.TokenService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,6 +26,12 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Usuário autenticado"),
+            @ApiResponse(code = 400, message = "Dados inconsistentes"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção no sistema")
+    })
+    @ApiOperation("Autentica o usuário cadastrador no sistema")
     @PostMapping
     public String auth(@RequestBody @Valid LoginDTO loginDTO) {
         UsernamePasswordAuthenticationToken user =
