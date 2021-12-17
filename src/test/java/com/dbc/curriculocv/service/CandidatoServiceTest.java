@@ -1,5 +1,6 @@
 package com.dbc.curriculocv.service;
 
+import com.dbc.curriculocv.dto.CandidatoCreateDTO;
 import com.dbc.curriculocv.dto.CandidatoDTO;
 import com.dbc.curriculocv.entity.Candidato;
 import com.dbc.curriculocv.exceptions.RegraDeNegocioException;
@@ -52,6 +53,26 @@ public class CandidatoServiceTest {
         candidatoService.list(candidatoId);
         verify(candidatoRepository,Mockito.times(1)).findById(ArgumentMatchers.eq(candidatoId));
         verify(candidatoRepository,Mockito.never()).findAll();
+    }
+
+    @Test
+    @DisplayName("deve criar candidato")
+    public void criarCandidato() throws RegraDeNegocioException {
+        CandidatoCreateDTO candidatoCreateDto = mock(CandidatoCreateDTO.class);
+        String cpf = "123";
+        boolean ret = false;
+        candidatoCreateDto.setCpf(cpf);
+        Candidato candidato = mock(Candidato.class);
+        Candidato candidatoSave = mock(Candidato.class);
+
+        when(candidatoCreateDto.getCpf()).thenReturn(cpf);
+        when(candidatoRepository.existsByCpf(ArgumentMatchers.eq(candidatoCreateDto.getCpf()))).thenReturn(false);
+        when(objectMapper.convertValue(candidatoCreateDto, Candidato.class)).thenReturn(candidato);
+        when(candidatoRepository.save(ArgumentMatchers.any(Candidato.class))).thenReturn(candidatoSave);
+
+        candidatoService.create(candidatoCreateDto);
+
+        verify(candidatoRepository, Mockito.times(1)).save(ArgumentMatchers.eq(candidato));
     }
 
 }
