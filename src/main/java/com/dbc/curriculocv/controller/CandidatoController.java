@@ -65,6 +65,18 @@ public class CandidatoController {
     }
 
     @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Cpf alterado"),
+            @ApiResponse(code = 400, message = "Dados inconsistentes ou candidato não encontrado"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção no sistema")
+    })
+    @ApiOperation("Atualiza o cpf do candidato")
+    @PutMapping("/alterar-cpf")
+    public CandidatoDTO updateCpf(@RequestParam Integer idCandidato, @RequestParam String cpf) throws RegraDeNegocioException {
+        return candidatoService.updateCpf(idCandidato, cpf);
+    }
+
+
+    @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Candidato deletado"),
             @ApiResponse(code = 400, message = "Dados inconsistentes ou candidato não encontrado"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção no sistema")

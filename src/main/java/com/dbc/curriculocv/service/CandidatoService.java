@@ -44,12 +44,13 @@ public class CandidatoService {
     }
 
     public CandidatoDTO update(Integer idCandidato, CandidatoCreateDTO candidatoCreateDTO) throws RegraDeNegocioException {
-        if (candidatoRepository.existsByCpf(candidatoCreateDTO.getCpf())) {
-            throw new RegraDeNegocioException("CPF já cadastrado");
-        }
         Candidato entity = candidatoRepository.findById(idCandidato).orElseThrow(() -> new RegraDeNegocioException("Candidato não encontrado"));
+
+        if(candidatoCreateDTO.getCpf()!=entity.getCpf()) {
+            throw new RegraDeNegocioException("o cpf não pode ser alterado!");
+        }
+
         entity.setNome(candidatoCreateDTO.getNome());
-        entity.setCpf(candidatoCreateDTO.getCpf());
         entity.setComplemento(candidatoCreateDTO.getComplemento());
         entity.setDataNascimento(candidatoCreateDTO.getDataNascimento());
         entity.setNumero(candidatoCreateDTO.getNumero());
@@ -58,6 +59,17 @@ public class CandidatoService {
         entity.setCargo(candidatoCreateDTO.getCargo());
         Candidato update = candidatoRepository.save(entity);
         return objectMapper.convertValue(update, CandidatoDTO.class);
+    }
+
+    public CandidatoDTO updateCpf(Integer idCandidato,String cpf) throws RegraDeNegocioException {
+        Candidato entity = candidatoRepository.findById(idCandidato).orElseThrow(() -> new RegraDeNegocioException("Candidato não encontrado"));
+        if (candidatoRepository.existsByCpf(cpf)) {
+            throw new RegraDeNegocioException("CPF já cadastrado ou idêntico ao atual");
+        }
+
+        entity.setCpf(cpf);
+        candidatoRepository.save(entity);
+        return objectMapper.convertValue(entity,CandidatoDTO.class);
     }
 
     public void delete(Integer idCandidato) throws RegraDeNegocioException {
