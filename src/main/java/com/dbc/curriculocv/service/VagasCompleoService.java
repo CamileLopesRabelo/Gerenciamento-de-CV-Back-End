@@ -28,20 +28,17 @@ public class VagasCompleoService {
         VagasDTO tempVagas;
         List<VagasCompleoDTO> lista;
 
-        //Percorre todas as paginas de acordo com o recebido na primeira requisição,
-        for(int paginaAtual = (PAGINA + 1); paginaAtual <= ret.getPaginas(); paginaAtual++ ) {
 
-            //faz a consulta na pagina atual de acordo com o indice
-            tempVagas = vagasCompleoClient.listar(TOKEN, paginaAtual, QUANTIDADE);
+        for(int paginaAtual = (PAGINA + 1); paginaAtual <= ret.getPaginas(); paginaAtual++ ) {  //Percorre todas as paginas de acordo com o recebido na primeira requisição,
 
-            //armazena as vagas da pagina atual
-            lista = tempVagas.getVagaGeralList();
+            tempVagas = vagasCompleoClient.listar(TOKEN, paginaAtual, QUANTIDADE);  //faz a consulta na pagina atual de acordo com o indice
 
-            //concatena as vagas da pagina atual com as das paginas anteriores
-            ret.setVagaGeralList(concatenaVagas(ret, lista).getVagaGeralList());
+            lista = tempVagas.getVagaGeralList(); //armazena as vagas da pagina atual
+
+            ret.setVagaGeralList(concatenaVagas(ret, lista).getVagaGeralList());  //concatena as vagas da pagina atual com as das paginas anteriores
         }
-        //setando as vagas filtradas com status Aberto
-        ret.setVagaGeralList(filtrarVagas(ret));
+
+        ret.setVagaGeralList(filtrarVagas(ret));  //setando as vagas filtradas com status Aberto
 
 
         VagasFiltradasDTO vagasFiltradasDto = objectMapper.convertValue(ret, VagasFiltradasDTO.class);
@@ -51,12 +48,14 @@ public class VagasCompleoService {
 
 
      //concatena as vagas da pagina atual com as das paginas anteriores
+
     public VagasDTO concatenaVagas(VagasDTO principal, List<VagasCompleoDTO> lista) {
         principal.getVagaGeralList().addAll(lista);
         return principal;
     }
 
     //filtra as vagas pelo status "Aberto" e id existente no banco
+
     public List<VagasCompleoDTO> filtrarVagas(VagasDTO ret) {
         List<VagasCompleoDTO> listaFiltrada = new ArrayList<>();
         List<Vaga> vagas = vagaRepository.findAll();
