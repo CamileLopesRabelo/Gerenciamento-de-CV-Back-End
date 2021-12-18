@@ -19,13 +19,14 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 @DisplayName("DadosEscolaresServiceTest")
@@ -90,6 +91,10 @@ public class DadosEscolaresServiceTest {
         DadosEscolares dadosEscolares = new DadosEscolares();
         dadosEscolares.setIdDadosEscolares(1);
         DadosEscolares save = new DadosEscolares();
+        save.setInstituicao("colegio 1");
+        save.setDescricao("ensino medio");
+        save.setDataInicio(new Date(2000-02-10));
+        save.setDataFim(new Date(2003-12-20));
         DadosEscolaresCreateDTO dadosEscolaresCreateDTO = new DadosEscolaresCreateDTO();
 
         when(dadosEscolaresRepository.findById(dadosEscolares.getIdDadosEscolares())).thenReturn(Optional.of(dadosEscolares));
@@ -99,5 +104,24 @@ public class DadosEscolaresServiceTest {
         DadosEscolaresDTO update = dadosEscolaresService.update(dadosEscolares.getIdDadosEscolares(), dadosEscolaresCreateDTO);
 
         assertNotNull(update);
+        assertEquals("colegio 1",update.getInstituicao());
+        assertEquals("ensino medio",update.getDescricao());
+        assertEquals(new Date(2000-02-10),update.getDataInicio());
+        assertEquals(new Date(2003-12-20),update.getDataFim());
+    }
+
+    @Test
+    @DisplayName("deve deletar os dados escolares")
+    public void deletarOsDadosEscolares() throws RegraDeNegocioException {
+        DadosEscolares dadosEscolares = new DadosEscolares();
+        dadosEscolares.setIdDadosEscolares(1);
+
+        when(dadosEscolaresRepository.findById(ArgumentMatchers.any())).thenReturn(Optional.of(dadosEscolares));
+        doNothing().when(dadosEscolaresRepository).delete(ArgumentMatchers.any());
+
+        dadosEscolaresService.delete(dadosEscolares.getIdDadosEscolares());
+
+        verify(dadosEscolaresRepository,times(1)).findById(dadosEscolares.getIdDadosEscolares());
+        verify(dadosEscolaresRepository,times(1)).delete(dadosEscolares);
     }
 }
