@@ -96,21 +96,41 @@ public class CandidatoServiceTest {
     }
 
     @Test
-    @DisplayName("deve alterar os dados do candidato")
-    public void updateCandidato() throws RegraDeNegocioException {
+    @DisplayName("deve alterar os dados do candidato sem modificar o cpf")
+    public void updateCandidatoSemMudancaNoCPF() throws RegraDeNegocioException {
         Candidato candidato = new Candidato();
         candidato.setIdCandidato(1);
         CandidatoCreateDTO candidatoCreateDTO = new CandidatoCreateDTO();
+        candidatoCreateDTO.setCpf("12345678910");
         Candidato candidatoAlterado = new Candidato();
         candidatoAlterado.setNome("camile");
 
         when(candidatoRepository.findById(eq(candidato.getIdCandidato()))).thenReturn(Optional.of(candidato));
+        when(candidatoRepository.existsByCpf(candidatoCreateDTO.getCpf())).thenReturn(false);
         when(candidatoRepository.save(candidato)).thenReturn(candidatoAlterado);
 
         CandidatoDTO update = candidatoService.update(candidato.getIdCandidato(), candidatoCreateDTO);
 
         assertNotNull(update);
         assertEquals("camile", update.getNome());
+    }
+
+
+
+    @Test(expected = RegraDeNegocioException.class)
+    @DisplayName("deve alterar os dados do candidato e o cpf")
+    public void updateCandidatoComMudancaNoCPFJaCadastrado() throws RegraDeNegocioException {
+        Candidato candidato = new Candidato();
+        candidato.setIdCandidato(1);
+        CandidatoCreateDTO candidatoCreateDTO = new CandidatoCreateDTO();
+        candidatoCreateDTO.setCpf("12345678910");
+        Candidato candidatoAlterado = new Candidato();
+        candidatoAlterado.setNome("camile");
+
+        when(candidatoRepository.findById(eq(candidato.getIdCandidato()))).thenReturn(Optional.of(candidato));
+        when(candidatoRepository.existsByCpf(candidatoCreateDTO.getCpf())).thenReturn(true);
+
+        candidatoService.update(candidato.getIdCandidato(), candidatoCreateDTO);
     }
 
     @Test
