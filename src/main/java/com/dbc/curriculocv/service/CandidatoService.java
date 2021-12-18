@@ -52,6 +52,7 @@ public class CandidatoService {
             }
             entity.setCpf(candidatoCreateDTO.getCpf());
         }
+        entity.setLogradouro(candidatoCreateDTO.getLogradouro());
         entity.setComplemento(candidatoCreateDTO.getComplemento());
         entity.setDataNascimento(candidatoCreateDTO.getDataNascimento());
         entity.setNumero(candidatoCreateDTO.getNumero());
