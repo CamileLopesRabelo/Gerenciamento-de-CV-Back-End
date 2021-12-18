@@ -44,9 +44,7 @@ public class CandidatoServiceTest {
     @DisplayName("deve listar varios candidatos")
     public void listarCandidatos () throws RegraDeNegocioException {
         List<CandidatoDTO> list = candidatoService.list(null);
-
         assertNotNull(list);
-
     }
 
     @Test
@@ -90,9 +88,7 @@ public class CandidatoServiceTest {
         candidatoCreateDTO.setCpf("01829834675");
 
         when(candidatoRepository.existsByCpf(candidatoCreateDTO.getCpf())).thenReturn(true);
-
         candidatoService.create(candidatoCreateDTO);
-
     }
 
     @Test

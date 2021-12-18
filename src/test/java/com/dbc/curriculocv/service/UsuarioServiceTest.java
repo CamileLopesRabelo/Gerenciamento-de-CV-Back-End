@@ -56,6 +56,25 @@ public class UsuarioServiceTest {
         assertEquals("teste@teste.com.br", usuarioDTO.getEmail());
     }
 
+    @Test(expected = RegraDeNegocioException.class)
+    @DisplayName("Deve cair na exceção ao criar um novo usuário")
+    public void deveCriarUmNovoUsuarioSemSucesso() throws RegraDeNegocioException {
+        BCryptPasswordEncoder crypt = new BCryptPasswordEncoder();
+        UsuarioCreateDTO usuarioCreateDTO = new UsuarioCreateDTO();
+        usuarioCreateDTO.setEmail("teste@teste.com.br");
+        usuarioCreateDTO.setSenha("teste");
+        Usuario usuarioSave = new Usuario();
+        usuarioSave.setIdUsuario(1);
+        usuarioSave.setEmail("teste@teste.com.br");
+        usuarioSave.setSenha(crypt.encode(usuarioCreateDTO.getSenha()));
 
+
+        when(usuarioRepository.existsByEmail(usuarioCreateDTO.getEmail())).thenReturn(true);
+
+        UsuarioDTO usuarioDTO = usuarioService.create(usuarioCreateDTO);
+        assertNotNull(usuarioDTO);
+        assertEquals(1, usuarioDTO.getIdUsuario());
+        assertEquals("teste@teste.com.br", usuarioDTO.getEmail());
+    }
 }
 
