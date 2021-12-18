@@ -45,12 +45,13 @@ public class CandidatoService {
 
     public CandidatoDTO update(Integer idCandidato, CandidatoCreateDTO candidatoCreateDTO) throws RegraDeNegocioException {
         Candidato entity = candidatoRepository.findById(idCandidato).orElseThrow(() -> new RegraDeNegocioException("Candidato não encontrado"));
-
-        if(candidatoCreateDTO.getCpf()!=entity.getCpf()) {
-            throw new RegraDeNegocioException("o cpf não pode ser alterado!");
-        }
-
         entity.setNome(candidatoCreateDTO.getNome());
+        if (!candidatoCreateDTO.getCpf().equals(entity.getCpf())) {
+            if (candidatoRepository.existsByCpf(candidatoCreateDTO.getCpf())) {
+                throw new RegraDeNegocioException("CPF já cadastrado");
+            }
+            entity.setCpf(candidatoCreateDTO.getCpf());
+        }
         entity.setComplemento(candidatoCreateDTO.getComplemento());
         entity.setDataNascimento(candidatoCreateDTO.getDataNascimento());
         entity.setNumero(candidatoCreateDTO.getNumero());
@@ -59,17 +60,6 @@ public class CandidatoService {
         entity.setCargo(candidatoCreateDTO.getCargo());
         Candidato update = candidatoRepository.save(entity);
         return objectMapper.convertValue(update, CandidatoDTO.class);
-    }
-
-    public CandidatoDTO updateCpf(Integer idCandidato,String cpf) throws RegraDeNegocioException {
-        Candidato entity = candidatoRepository.findById(idCandidato).orElseThrow(() -> new RegraDeNegocioException("Candidato não encontrado"));
-        if (candidatoRepository.existsByCpf(cpf)) {
-            throw new RegraDeNegocioException("CPF já cadastrado ou idêntico ao atual");
-        }
-
-        entity.setCpf(cpf);
-        candidatoRepository.save(entity);
-        return objectMapper.convertValue(entity,CandidatoDTO.class);
     }
 
     public void delete(Integer idCandidato) throws RegraDeNegocioException {
@@ -125,23 +115,10 @@ public class CandidatoService {
         Pageable pageable = PageRequest.of(pagina, quantidade);
         Page<Candidato> paginacao = candidatoRepository.findAll(pageable);
         return new CandidatoDadosExperienciasPaginadaDTO(
-                paginacao.getContent().stream().map(candidato -> {
-                    CandidatoDadosExperienciasDTO candidatoDadosExperienciasDTO = new CandidatoDadosExperienciasDTO();
-                    candidatoDadosExperienciasDTO.setCandidato(objectMapper.convertValue(candidato, CandidatoDTO.class));
-                    candidatoDadosExperienciasDTO.setDadosEscolares(
-                            candidato.getDadosEscolares()
-                                    .stream()
-                                    .map(dadosEscolares -> objectMapper.convertValue(dadosEscolares, DadosEscolaresDTO.class))
-                                    .collect(Collectors.toList())
-                    );
-                    candidatoDadosExperienciasDTO.setExperiencias(
-                            candidato.getExperiencias()
-                                    .stream()
-                                    .map(experiencias -> objectMapper.convertValue(experiencias, ExperienciasDTO.class))
-                                    .collect(Collectors.toList())
-                    );
-                    return candidatoDadosExperienciasDTO;
-                }).collect(Collectors.toList()),
+                paginacao.getContent()
+                        .stream()
+                        .map(this::setCandidatoDadosExperienciasDTO)
+                        .collect(Collectors.toList()),
                 paginacao.getTotalElements(),
                 paginacao.getTotalPages(),
                 paginacao.getPageable().getPageNumber(),
