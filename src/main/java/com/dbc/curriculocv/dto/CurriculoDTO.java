@@ -1,11 +1,13 @@
 package com.dbc.curriculocv.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CurriculoDTO {
     @ApiModelProperty("Identificador do curriculo")
     private Integer idCurriculo;

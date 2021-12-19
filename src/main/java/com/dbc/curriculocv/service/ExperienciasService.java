@@ -1,11 +1,8 @@
 package com.dbc.curriculocv.service;
 
-import com.dbc.curriculocv.dto.DadosEscolaresCreateDTO;
-import com.dbc.curriculocv.dto.DadosEscolaresDTO;
 import com.dbc.curriculocv.dto.ExperienciasCreateDTO;
 import com.dbc.curriculocv.dto.ExperienciasDTO;
 import com.dbc.curriculocv.entity.Candidato;
-import com.dbc.curriculocv.entity.DadosEscolares;
 import com.dbc.curriculocv.entity.Experiencias;
 import com.dbc.curriculocv.exceptions.RegraDeNegocioException;
 import com.dbc.curriculocv.repository.CandidatoRepository;
@@ -40,7 +37,7 @@ public class ExperienciasService {
     }
 
     public ExperienciasDTO update(Integer idExperiencia, ExperienciasCreateDTO experienciasCreateDTO) throws RegraDeNegocioException {
-        Experiencias entity = experienciasRepository.findById(idExperiencia).orElseThrow(() -> new RegraDeNegocioException("Dado escolar não encontrado"));
+        Experiencias entity = experienciasRepository.findById(idExperiencia).orElseThrow(() -> new RegraDeNegocioException("Experiência não encontrada"));
         entity.setNomeEmpresa(experienciasCreateDTO.getNomeEmpresa());
         entity.setDataInicio(experienciasCreateDTO.getDataInicio());
         entity.setDataFim(experienciasCreateDTO.getDataFim());
@@ -50,7 +47,7 @@ public class ExperienciasService {
     }
 
     public void delete(Integer idExperiencia) throws RegraDeNegocioException {
-        Experiencias experiencias = experienciasRepository.findById(idExperiencia).orElseThrow(() -> new RegraDeNegocioException("Dado Escolar não encontrado"));
+        Experiencias experiencias = experienciasRepository.findById(idExperiencia).orElseThrow(() -> new RegraDeNegocioException("Experiência não encontrada"));
         experienciasRepository.delete(experiencias);
     }
 }

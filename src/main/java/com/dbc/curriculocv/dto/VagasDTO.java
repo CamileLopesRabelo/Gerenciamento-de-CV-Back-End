@@ -1,5 +1,6 @@
 package com.dbc.curriculocv.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.bson.Document;
@@ -12,6 +13,7 @@ import java.util.List;
 public class VagasDTO {
     @ApiModelProperty("Lista de vagas, vindas da API Compleo")
     private List<VagasCompleoDTO> vagaGeralList;
+
 
     @ApiModelProperty("Total de vagas")
     private Integer total;
