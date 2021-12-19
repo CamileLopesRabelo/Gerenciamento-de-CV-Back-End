@@ -54,7 +54,7 @@ public class VagasCompleoService {
         return principal;
     }
 
-    //filtra as vagas pelo status "Aberto" e id existente no banco
+    //filtra as vagas pelo status "Aberta" e id existente no banco
 
     public List<VagasCompleoDTO> filtrarVagas(VagasDTO ret) {
         List<VagasCompleoDTO> listaFiltrada = new ArrayList<>();
