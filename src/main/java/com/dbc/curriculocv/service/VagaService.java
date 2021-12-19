@@ -26,16 +26,17 @@ public class VagaService {
     private final ObjectMapper objectMapper;
 
     public void updateTable() throws RegraDeNegocioException {
-        VagasFiltradasDTO vagasSemFiltro = vagasCompleoService.list();
-        for (int i = 0; i < vagasSemFiltro.getTotalDeVagas(); i++) {
-            if (vagaRepository.existsById(vagasSemFiltro.getVagaGeralList().get(i).getId())) {
-                VagasCompleoDTO vagasCompleoDTO = vagasSemFiltro.getVagaGeralList().get(i);
+        VagasFiltradasDTO vagasFiltradasDTO = vagasCompleoService.list();
+        for (int i = 0; i < vagasFiltradasDTO.getTotalDeVagas(); i++) {
+            if (vagaRepository.existsById(vagasFiltradasDTO.getVagaGeralList().get(i).getId())) {
+                VagasCompleoDTO vagasCompleoDTO = vagasFiltradasDTO.getVagaGeralList().get(i);
                 Vaga vaga = objectMapper.convertValue(vagasCompleoDTO, Vaga.class);
-                Vaga banco = vagaRepository.findById(vaga.getId()).orElseThrow(() -> new RegraDeNegocioException("Vaga não encontrada"));
+                Vaga banco = vagaRepository.findById(vaga.getId())
+                        .orElseThrow(() -> new RegraDeNegocioException("Vaga não encontrada"));
                 vaga.setCandidatos(banco.getCandidatos());
                 vagaRepository.save(vaga);
             } else {
-                VagasCompleoDTO vagasCompleoDTO = vagasSemFiltro.getVagaGeralList().get(i);
+                VagasCompleoDTO vagasCompleoDTO = vagasFiltradasDTO.getVagaGeralList().get(i);
                 Vaga vaga = objectMapper.convertValue(vagasCompleoDTO, Vaga.class);
                 vagaRepository.save(vaga);
             }
