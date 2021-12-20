@@ -49,7 +49,7 @@ public class VagasCompleoService {
 
      //concatena as vagas da pagina atual com as das paginas anteriores
 
-    public VagasDTO concatenaVagas(VagasDTO principal, List<VagasCompleoDTO> lista) {
+    private VagasDTO concatenaVagas(VagasDTO principal, List<VagasCompleoDTO> lista) {
         principal.getVagaGeralList().addAll(lista);
         return principal;
     }

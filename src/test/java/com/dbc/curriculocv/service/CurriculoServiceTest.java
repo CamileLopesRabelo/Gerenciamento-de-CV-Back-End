@@ -7,7 +7,6 @@ import com.dbc.curriculocv.exceptions.RegraDeNegocioException;
 import com.dbc.curriculocv.repository.CandidatoRepository;
 import com.dbc.curriculocv.repository.CurriculoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.JwsHeader;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
