@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -134,7 +135,7 @@ public class VagaService {
 
     @Transactional
     public VagaCandidatoPaginadaDTO listaVagasCandidatoPaginada(Integer pagina, Integer quantidade) {
-        Pageable pageable = PageRequest.of(pagina, quantidade);
+        Pageable pageable = PageRequest.of(pagina, quantidade, Sort.by("status").ascending());
         Page<Vaga> paginacao = vagaRepository.findAll(pageable);
         return new VagaCandidatoPaginadaDTO(
                 paginacao.getContent().stream().map(vaga -> {

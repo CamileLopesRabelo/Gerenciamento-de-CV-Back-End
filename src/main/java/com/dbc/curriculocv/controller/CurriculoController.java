@@ -39,6 +39,6 @@ public class CurriculoController {
     @ApiOperation("Recupera o curriculo")
     @GetMapping("/download-curriculo/{idCandidato}")
     public ResponseEntity<Resource> downloadCurriculo(@PathVariable Integer idCandidato) {
-        return curriculoService.doanloadCurriculo(idCandidato);
+        return curriculoService.downloadCurriculo(idCandidato);
     }
 }
