@@ -69,7 +69,7 @@ public class CurriculoService {
     }
 
     @Transactional
-    public ResponseEntity<Resource> doanloadCurriculo(Integer idCandidato) {
+    public ResponseEntity<Resource> downloadCurriculo(Integer idCandidato) {
         Curriculo curriculo = curriculoRepository.getCurriculoByIdCandidato(idCandidato);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(curriculo.getFileType()))
