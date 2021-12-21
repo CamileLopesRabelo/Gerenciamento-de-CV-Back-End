@@ -1,12 +1,9 @@
 package com.dbc.curriculocv.repository;
 
 import com.dbc.curriculocv.entity.Curriculo;
-import com.dbc.curriculocv.entity.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 @Repository
 public interface CurriculoRepository extends JpaRepository<Curriculo, Integer> {

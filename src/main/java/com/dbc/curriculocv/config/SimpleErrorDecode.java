@@ -3,7 +3,6 @@ package com.dbc.curriculocv.config;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import org.apache.commons.io.IOUtils;
-
 import java.io.IOException;
 import java.rmi.UnexpectedException;
 

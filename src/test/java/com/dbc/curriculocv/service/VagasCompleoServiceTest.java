@@ -16,10 +16,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
@@ -55,7 +53,6 @@ public class VagasCompleoServiceTest {
         vagasDTO.setPaginas(10);
         vagasDTO.setPagina(1);
         vagasDTO.setQuantidade(10);
-
 
         when(vagasCompleoClient.listar(ArgumentMatchers.any(),ArgumentMatchers.any(),ArgumentMatchers.any())).thenReturn(vagasDTO);
         when(vagaRepository.findAll()).thenReturn(vagas);

@@ -50,7 +50,6 @@ public class CurriculoServiceTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-
     @Before
     public void beforeEach() {
         ReflectionTestUtils.setField(curriculoService, "objectMapper", objectMapper);

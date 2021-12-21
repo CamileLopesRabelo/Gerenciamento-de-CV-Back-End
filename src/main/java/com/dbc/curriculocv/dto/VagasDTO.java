@@ -1,10 +1,7 @@
 package com.dbc.curriculocv.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
-import org.bson.Document;
-
 import java.util.List;
 
 @Data

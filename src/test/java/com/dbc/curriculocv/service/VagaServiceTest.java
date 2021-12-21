@@ -19,10 +19,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.util.ReflectionTestUtils;
-
 import java.util.*;
 import java.util.function.Function;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -83,7 +81,6 @@ public class VagaServiceTest {
         VagasFiltradasDTO vagasFiltradasDTO = new VagasFiltradasDTO();
         vagasFiltradasDTO.setTotalDeVagas(1);
         vagasFiltradasDTO.setVagaGeralList(vagasCompleoDTOS);
-        Vaga vaga = new Vaga();
 
         Vaga vagaSalva = new Vaga();
 
@@ -108,7 +105,6 @@ public class VagaServiceTest {
         candidato.setNome("camile");
         CandidatoDTO candidatoDTO = objectMapper.convertValue(candidato, CandidatoDTO.class);
 
-
         Set<Candidato> listaCandidatos = new HashSet<>();
         listaCandidatos.add(candidato);
         Vaga vaga = new Vaga();
@@ -116,8 +112,6 @@ public class VagaServiceTest {
         vaga.setCandidatos(listaCandidatos);
         Vaga vagaSalva = new Vaga();
         vagaSalva.setCandidatos(listaCandidatos);
-
-
 
         when(candidatoRepository.findById(candidato.getIdCandidato())).thenReturn(Optional.of(candidato));
         when(vagaRepository.findById(vaga.getId())).thenReturn(Optional.of(vaga));

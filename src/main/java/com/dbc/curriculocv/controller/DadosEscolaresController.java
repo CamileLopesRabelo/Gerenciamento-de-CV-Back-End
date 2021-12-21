@@ -1,7 +1,5 @@
 package com.dbc.curriculocv.controller;
 
-import com.dbc.curriculocv.dto.CandidatoCreateDTO;
-import com.dbc.curriculocv.dto.CandidatoDTO;
 import com.dbc.curriculocv.dto.DadosEscolaresCreateDTO;
 import com.dbc.curriculocv.dto.DadosEscolaresDTO;
 import com.dbc.curriculocv.exceptions.RegraDeNegocioException;
@@ -12,7 +10,6 @@ import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 
