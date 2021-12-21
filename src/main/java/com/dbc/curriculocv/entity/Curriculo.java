@@ -33,7 +33,7 @@ public class Curriculo {
     private byte[] data;
 
     @JsonIgnore
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "fk_candidato", referencedColumnName = "id_candidato")
     private Candidato candidato;
 }

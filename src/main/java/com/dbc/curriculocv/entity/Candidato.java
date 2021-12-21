@@ -62,7 +62,7 @@ public class Candidato {
     private Set<Vaga> vagas;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "candidato")
+    @OneToOne(mappedBy = "candidato", cascade = CascadeType.REMOVE)
     private Curriculo curriculo;
 
 }
