@@ -9,6 +9,7 @@ public class CurriculocvApplicationTests {
 
 	@Test
 	public void contextLoads() {
+
 	}
 
 }

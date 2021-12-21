@@ -30,15 +30,12 @@ public class CandidatoServiceTest {
     @Mock
     private CandidatoRepository candidatoRepository;
 
-
     private final ObjectMapper objectMapper = new ObjectMapper();
-
 
     @Before
     public void beforeEach() {
         ReflectionTestUtils.setField(candidatoService, "objectMapper",objectMapper);
     }
-
 
     @Test
     @DisplayName("deve listar varios candidatos")
@@ -110,8 +107,6 @@ public class CandidatoServiceTest {
         assertNotNull(update);
         assertEquals("camile", update.getNome());
     }
-
-
 
     @Test(expected = RegraDeNegocioException.class)
     @DisplayName("deve alterar os dados do candidato e o cpf")

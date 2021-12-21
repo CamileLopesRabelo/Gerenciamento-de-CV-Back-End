@@ -13,7 +13,6 @@ import org.mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.util.ReflectionTestUtils;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -46,7 +45,6 @@ public class UsuarioServiceTest {
         usuarioSave.setEmail("teste@teste.com.br");
         usuarioSave.setSenha(crypt.encode(usuarioCreateDTO.getSenha()));
 
-
         when(usuarioRepository.existsByEmail(usuarioCreateDTO.getEmail())).thenReturn(false);
         when(usuarioRepository.save(any())).thenReturn(usuarioSave);
 
@@ -67,7 +65,6 @@ public class UsuarioServiceTest {
         usuarioSave.setIdUsuario(1);
         usuarioSave.setEmail("teste@teste.com.br");
         usuarioSave.setSenha(crypt.encode(usuarioCreateDTO.getSenha()));
-
 
         when(usuarioRepository.existsByEmail(usuarioCreateDTO.getEmail())).thenReturn(true);
 

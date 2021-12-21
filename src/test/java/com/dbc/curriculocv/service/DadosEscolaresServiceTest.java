@@ -41,9 +41,7 @@ public class DadosEscolaresServiceTest {
     @Mock
     private CandidatoRepository candidatoRepository;
 
-
     private final ObjectMapper objectMapper = new ObjectMapper();
-
 
     @Before
     public void beforeEach() {
@@ -99,7 +97,6 @@ public class DadosEscolaresServiceTest {
 
         when(dadosEscolaresRepository.findById(dadosEscolares.getIdDadosEscolares())).thenReturn(Optional.of(dadosEscolares));
         when(dadosEscolaresRepository.save(dadosEscolares)).thenReturn(save);
-
 
         DadosEscolaresDTO update = dadosEscolaresService.update(dadosEscolares.getIdDadosEscolares(), dadosEscolaresCreateDTO);
 
