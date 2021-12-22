@@ -133,7 +133,7 @@ public class VagaService {
 
     @Transactional
     public VagaCandidatoPaginadaDTO listaVagasCandidatoPaginada(Integer pagina, Integer quantidade) {
-        Pageable pageable = PageRequest.of(pagina, quantidade, Sort.by("status").ascending());
+        Pageable pageable = PageRequest.of(pagina, quantidade);
         Page<Vaga> paginacao = vagaRepository.findAll(pageable);
         return new VagaCandidatoPaginadaDTO(
                 paginacao.getContent().stream().map(vaga -> {
