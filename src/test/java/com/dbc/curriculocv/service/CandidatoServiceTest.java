@@ -363,7 +363,7 @@ public class CandidatoServiceTest {
 
         when(candidatoRepository.findAll(ArgumentMatchers.any(Pageable.class))).thenReturn(candidatoPage);
 
-        CandidatoDadosExperienciasPaginadaDTO candidatoDadosExperienciasPaginadaDTO = candidatoService.listaCandidatosDadosExperiencias(1, 1);
+        CandidatoDadosExperienciasPaginadaDTO candidatoDadosExperienciasPaginadaDTO = candidatoService.listCandidatosDadosExperienciasPaginada(1, 1);
 
         assertNotNull(candidatoDadosExperienciasPaginadaDTO);
         assertEquals("Joaquim Barroso Neto",candidatoDadosExperienciasPaginadaDTO.getCandidatos().get(0).getDadosEscolares().get(0).getInstituicao());

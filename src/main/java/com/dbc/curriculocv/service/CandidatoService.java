@@ -110,7 +110,7 @@ public class CandidatoService {
         );
     }
 
-    public CandidatoDadosExperienciasPaginadaDTO listaCandidatosDadosExperiencias(Integer pagina, Integer quantidade) {
+    public CandidatoDadosExperienciasPaginadaDTO listCandidatosDadosExperienciasPaginada(Integer pagina, Integer quantidade) {
         Pageable pageable = PageRequest.of(pagina, quantidade);
         Page<Candidato> paginacao = candidatoRepository.findAll(pageable);
         return new CandidatoDadosExperienciasPaginadaDTO(

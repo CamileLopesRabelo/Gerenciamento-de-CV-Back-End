@@ -95,6 +95,6 @@ public class CandidatoController {
     @GetMapping("/candidato-completos-paginada")
     public CandidatoDadosExperienciasPaginadaDTO listaCandidatosDadosExperienciasPaginada(@RequestParam(value = "pagina") Integer pagina,
                                                                                           @RequestParam(value = "quantidade") Integer quantidade) {
-        return candidatoService.listaCandidatosDadosExperiencias(pagina, quantidade);
+        return candidatoService.listCandidatosDadosExperienciasPaginada(pagina, quantidade);
     }
 }
